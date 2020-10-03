@@ -6,6 +6,7 @@ signal Unhook
 export (float) var hook_length = 200
 export (Vector2) var gravity = Vector2(0, 100)
 export (NodePath) var debug_path
+export (float) var acceleration = 1
 
 
 onready var ray = $RayCast2D
@@ -19,14 +20,24 @@ onready var pawn = get_parent()
 
 onready var debug_draw = get_node(debug_path)
 
+var input_axis = 0
+
 # Hook
 var hook_point
 var hook_state = Hook.IDLE
+
+var start_distance = 0
 
 func _ready():
 	pass # Replace with function body.
 
 func _input(event):
+	
+	input_axis = 0
+	if Input.is_action_pressed("right"):
+		input_axis += 1
+	if Input.is_action_pressed("left"):
+		input_axis -= 1
 	
 	if Input.is_action_just_pressed("hook"):
 		var pos = ray_cast()
@@ -50,9 +61,12 @@ func hook(var point : Vector2):
 	hook_state = Hook.HOOK
 	hook_point = point
 	
+	start_distance = hook_point.distance_to(pawn.position)
+	
 	emit_signal("Hook")
 
 func unhook():
+	
 	hook_state = Hook.IDLE
 	
 	emit_signal("Unhook")
@@ -68,4 +82,7 @@ func move(var velocity : Vector2) -> Vector2:
 	else:
 		direction = hook_v.rotated(-PI/2)
 	
+	pawn.position = pawn.position.move_toward(hook_point, pawn.position.distance_to(hook_point) - start_distance)
+	
 	return direction * (velocity.length() + direction.dot(gravity))
+
