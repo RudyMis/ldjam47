@@ -11,6 +11,7 @@ blend_mode = 1
 
 [node name="Hook" type="Node2D"]
 script = ExtResource( 1 )
+hook_length = 70.0
 acceleration = 5.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -19,21 +20,26 @@ cast_to = Vector2( 200, 0 )
 collision_mask = 2
 
 [node name="begin" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 3 )
 
 [node name="beam" type="Sprite" parent="."]
+visible = false
 material = SubResource( 1 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( 0, -12 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 200, 24 )
+region_rect = Rect2( 1.54999, 2.05, 20.9, 21.85 )
 
 [node name="End" type="Position2D" parent="."]
 position = Vector2( 200, 0 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="End"]
+visible = false
 material = SubResource( 2 )
+scale = Vector2( 0.1, 0.1 )
 lifetime = 0.25
 preprocess = 0.25
 texture = ExtResource( 3 )

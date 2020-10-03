@@ -19,8 +19,6 @@ enum Hook {
 
 onready var pawn = get_parent()
 
-onready var debug_draw = get_node(debug_path)
-
 var input_axis = 0
 
 # Hook
@@ -53,12 +51,12 @@ func _physics_process(_delta):
 	
 	if ray.is_colliding():
 		$End.global_position = ray.get_collision_point()
-		$"End/CPUParticles2D".visible=true
+		$beam.rotation = ray.cast_to.angle()
+		$beam.region_rect.end.x = $End.position.length()
 	else:
 		$End.global_position=ray.cast_to
-		$"End/CPUParticles2D".visible=false
-	$beam.rotation=ray.cast_to.angle()
-	$beam.region_rect.end.x=$End.position.length()
+		
+	
 
 func ray_cast() -> Vector2:
 	
@@ -73,11 +71,17 @@ func hook(var point : Vector2):
 	
 	start_distance = hook_point.distance_to(pawn.position)
 	
+	$beam.visible = true
+	$"End/CPUParticles2D".visible = true
+	
 	emit_signal("Hook")
 
 func unhook():
 	
 	hook_state = Hook.IDLE
+	
+	$"End/CPUParticles2D".visible = false
+	$beam.visible = false
 	
 	emit_signal("Unhook")
 
