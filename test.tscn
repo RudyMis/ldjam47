@@ -9,7 +9,9 @@ extents = Vector2( 31.5, 32 )
 [node name="Node2D" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 258.401, 167.364 )
+position = Vector2( 239.06, 13.4796 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )
@@ -19,6 +21,8 @@ texture = ExtResource( 2 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2( 73.6769, 237.126 )
+collision_layer = 3
+collision_mask = 2147483651
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource( 1 )
@@ -27,7 +31,9 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2( 383.754, 71.8299 )
+position = Vector2( 373.663, 241.691 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 shape = SubResource( 1 )
@@ -37,3 +43,12 @@ texture = ExtResource( 2 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
 position = Vector2( 70.5635, 25.0834 )
+
+[node name="Hook" parent="KinematicBody2D" index="3"]
+debug_path = NodePath("../../Sprite")
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+
+[editable path="KinematicBody2D"]

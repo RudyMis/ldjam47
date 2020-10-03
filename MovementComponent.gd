@@ -11,6 +11,8 @@ export (float) var jump_height
 export (float) var jump_time
 export (float) var fall_speed
 
+export (NodePath) var hook_path
+
 enum Move {
 	IDLE,
 	STOP,
@@ -25,14 +27,20 @@ enum Jump {
 	FALL
 }
 
+# Movement
 var current_velocity : Vector2
 var input_axis : Vector2
 var move_tween : Node
 var move_state = Move.IDLE
 var direction_changed := false
+
+# Jumping
 var jump_tween : Node
 var jump_state = Jump.IDLE
 var do_jump = false
+
+var b_hook = false
+onready var hook = get_node(hook_path)
 
 # Postać kontrolowana przez ten węzeł
 onready var pawn = get_parent()
@@ -46,6 +54,9 @@ func _ready():
 	jump_tween = Tween.new()
 	add_child(jump_tween)
 	jump_tween.set_owner(get_owner())
+	
+	hook.connect("Hook", self, "_on_hook")
+	hook.connect("Unhook", self, "_on_unhook")
 	
 	# Checks if parent is moveable or not
 	if !pawn.is_class("KinematicBody2D"):
@@ -68,6 +79,24 @@ func _input(_event):
 
 func _physics_process(_delta):
 	
+	if b_hook:
+		 current_velocity = hook.move(current_velocity)
+	else:
+		move()
+	
+	pawn.move_and_slide(current_velocity, Vector2(0, -1))
+	
+	if !b_hook:
+		collision()
+
+func _on_hook():
+	b_hook = true
+
+func _on_unhook():
+	jump_state = Jump.IDLE
+	b_hook = false
+
+func move():
 	# Jumping
 	if do_jump:
 		if jump_state == Jump.IDLE:
@@ -76,8 +105,6 @@ func _physics_process(_delta):
 		if jump_state == Jump.JUMP:
 			fall()
 	
-	print(move_state)
-	
 	# Movement
 	if direction_changed:
 		direction_changed = false
@@ -85,9 +112,8 @@ func _physics_process(_delta):
 			stop()
 		else:
 			start(input_axis.x)
-	
-	
-	pawn.move_and_slide(current_velocity, Vector2(0, -1))
+
+func collision():
 	
 	if pawn.is_on_floor():
 		jump_state = Jump.IDLE
@@ -135,19 +161,14 @@ func jump():
 	
 	jump_state = Jump.JUMP
 	
-	print("Jump")
-	
 	# Upward in godot is negative
 	var initial_velocity = -2.0 * jump_height / jump_time
-	print(initial_velocity)
 	
 	jump_tween.remove(self, "current_velocity:y")
 	jump_tween.interpolate_property(self, "current_velocity:y", initial_velocity, 0, jump_time, Tween.TRANS_LINEAR)
 	jump_tween.start()
 	
 	yield(jump_tween, "tween_completed")
-	
-	print("Done")
 	
 	if jump_state == Jump.JUMP:
 		fall()
