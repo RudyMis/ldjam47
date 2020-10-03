@@ -1,20 +1,22 @@
 extends Camera2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var time = 0.5
+var t = 0
+var movement = Vector2(0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("change_now", self, "cam_move_handler")
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if movement != Vector2(0, 0):
+		if (t < time):
+			t += delta
+			position += movement * delta / time 
+		else:
+			movement = Vector2(0, 0)
 
 func cam_move_handler(ch):
-	position.x += ch[0]
-	position.y += ch[1]
+	movement = ch
+	t = 0
