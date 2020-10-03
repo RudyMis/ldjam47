@@ -8,5 +8,5 @@ func _ready():
 	pass # Replace with function body.
 
 
-func move():
+func move(var velocity : Vector2):
 	
