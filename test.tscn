@@ -8,6 +8,9 @@
 [node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
 position = Vector2( 70.5635, 25.0834 )
 
+[node name="Sprite" parent="KinematicBody2D" index="3"]
+frame = 2
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 8, 8 )

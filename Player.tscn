@@ -53,5 +53,5 @@ sprite_path = NodePath("../Sprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
