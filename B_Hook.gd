@@ -4,9 +4,10 @@ signal Hook
 signal Unhook
 
 export (float) var hook_length = 200
-export (Vector2) var gravity = Vector2(0, 100)
+export (Vector2) var gravity = Vector2(0, 10)
 export (NodePath) var debug_path
 export (float) var acceleration = 1
+export (float) var max_speed = 200
 
 
 onready var ray = $RayCast2D
@@ -48,7 +49,6 @@ func _input(event):
 
 func _physics_process(delta):
 	ray.cast_to = (get_global_mouse_position() - pawn.position).normalized() * hook_length
-	debug_draw.position = ray.cast_to + pawn.position
 
 func ray_cast() -> Vector2:
 	
@@ -84,5 +84,5 @@ func move(var velocity : Vector2) -> Vector2:
 	
 	pawn.position = pawn.position.move_toward(hook_point, pawn.position.distance_to(hook_point) - start_distance)
 	
-	return direction * (velocity.length() + direction.dot(gravity))
+	return direction * (clamp(direction.dot(velocity) + direction.dot(gravity), -max_speed, max_speed))
 

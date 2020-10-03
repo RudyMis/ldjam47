@@ -4,15 +4,6 @@ class_name MovementComponent
 func is_class(name : String): return "MovementComponent" == name || .is_class(name)
 func get_class(): return "MovementComponent"
 
-export (float) var move_velocity
-export (float) var acceleration_time
-export (float) var deceleration_time
-export (float) var jump_height
-export (float) var jump_time
-export (float) var fall_speed
-
-export (NodePath) var hook_path
-
 enum Move {
 	IDLE,
 	STOP,
@@ -26,6 +17,16 @@ enum Jump {
 	JUMP,
 	FALL
 }
+
+export (float) var move_velocity
+export (float) var acceleration_time
+export (float) var deceleration_time
+export (float) var jump_height
+export (float) var jump_time
+export (float) var fall_speed
+
+export (NodePath) var hook_path
+export (NodePath) var sprite_path
 
 # Movement
 var current_velocity : Vector2
@@ -44,6 +45,7 @@ onready var hook = get_node(hook_path)
 
 # Postać kontrolowana przez ten węzeł
 onready var pawn = get_parent()
+onready var sprite = get_node(sprite_path)
 
 func _ready():
 	# Creates tween for smooth movement
@@ -118,16 +120,23 @@ func collision():
 	if pawn.is_on_floor():
 		jump_state = Jump.IDLE
 		current_velocity.y = 0
+	#elif pawn.is_on_wall():
+	#	jump_state = Jump.IDLE
+	
 	elif jump_state == Jump.IDLE:
 		fall()
+		
 
 # Starts moving
 func start(direction : float):
 	
+	sprite.animation = "run"
 	var state
 	if direction == 1:
+		sprite.flip_h = false
 		state = Move.START_RIGHT
 	else:
+		sprite.flip_h = true
 		state = Move.START_LEFT
 	
 	move_state = state
@@ -155,6 +164,7 @@ func stop():
 	
 	if move_state == Move.STOP:
 		move_state = Move.IDLE
+		sprite.animation = "idle"
 
 # Start of the jump
 func jump():
@@ -181,7 +191,7 @@ func fall():
 	var fall_velocity = 2.0 * jump_height / jump_time
 	
 	jump_tween.remove(self, "current_velocity:y")
-	jump_tween.interpolate_property(self, "current_velocity:y", current_velocity.y, fall_velocity, jump_time * 3 / 4, Tween.TRANS_LINEAR)
+	jump_tween.interpolate_property(self, "current_velocity:y", current_velocity.y / 2, fall_velocity, jump_time * 3 / 4, Tween.TRANS_LINEAR)
 	jump_tween.start()
 	
 	yield(jump_tween, "tween_completed")
