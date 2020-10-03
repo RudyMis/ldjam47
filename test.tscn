@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/PlayerAnimation.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://Assets/Ground.tres" type="TileSet" id=3]
 
 [node name="Node2D" type="Node2D"]
@@ -9,7 +10,9 @@
 position = Vector2( 70.5635, 25.0834 )
 
 [node name="Sprite" parent="KinematicBody2D" index="2"]
-frame = 0
+frames = ExtResource( 2 )
+animation = "jump"
+frame = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )

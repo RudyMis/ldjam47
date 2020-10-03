@@ -96,6 +96,7 @@ func _physics_process(_delta):
 		collision()
 
 func _on_hook():
+	sprite.animation = "hook"
 	b_hook = true
 
 func _on_unhook():
@@ -133,14 +134,20 @@ func move():
 func collision():
 	
 	if pawn.is_on_floor():
-		jump_state = Jump.IDLE
-		current_velocity.y = 0
-		current_force = Vector2.ZERO
+		if jump_state != Jump.IDLE:
+			jump_state = Jump.IDLE
+			current_velocity.y = 5
+			current_force = Vector2.ZERO
+			sprite.animation = "land"
+			yield(sprite, "animation_finished")
+			if sprite.animation == "land":
+				sprite.animation = "idle"
 
 	#elif pawn.is_on_wall():
 	#	jump_state = Jump.IDLE
 	
 	elif jump_state == Jump.IDLE:
+		print("Tu")
 		fall()
 		
 
@@ -187,6 +194,7 @@ func stop():
 func jump():
 	
 	jump_state = Jump.JUMP
+	sprite.animation = "jump"
 	
 	# Upward in godot is negative
 	var initial_velocity = -2.0 * jump_height / jump_time
@@ -203,6 +211,7 @@ func jump():
 func fall():
 	
 	jump_state = Jump.FALL
+	sprite.animation = "fall"
 	do_jump = false
 	
 	var fall_velocity = 2.0 * jump_height / jump_time
