@@ -32,7 +32,7 @@ var start_distance = 0
 func _ready():
 	pass # Replace with function body.
 
-func _input(event):
+func _input(_event):
 	
 	input_axis = 0
 	if Input.is_action_pressed("right"):
@@ -47,7 +47,7 @@ func _input(event):
 	if Input.is_action_just_released("hook"):
 		unhook()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	ray.cast_to = (get_global_mouse_position() - pawn.position).normalized() * hook_length
 	
