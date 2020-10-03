@@ -82,7 +82,8 @@ func move(var velocity : Vector2) -> Vector2:
 	else:
 		direction = hook_v.rotated(-PI/2)
 	
-	pawn.position = pawn.position.move_toward(hook_point, pawn.position.distance_to(hook_point) - start_distance)
+	if pawn.position.distance_to(hook_point) > start_distance:
+		pawn.position = pawn.position.move_toward(hook_point, pawn.position.distance_to(hook_point) - start_distance)
 	
 	return direction * (clamp(direction.dot(velocity) + direction.dot(gravity), -max_speed, max_speed))
 

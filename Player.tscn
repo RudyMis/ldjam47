@@ -39,10 +39,10 @@ shape = SubResource( 1 )
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource( 2 )
-move_velocity = 150.0
+move_velocity = 100.0
 acceleration_time = 0.3
 deceleration_time = 0.15
-jump_height = 40.0
+jump_height = 32.0
 jump_time = 0.3
 fall_speed = 100.0
 hook_path = NodePath("../Hook")

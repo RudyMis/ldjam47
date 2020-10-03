@@ -95,6 +95,7 @@ func _on_hook():
 	b_hook = true
 
 func _on_unhook():
+	move_state = Move.IDLE
 	jump_state = Jump.IDLE
 	b_hook = false
 
