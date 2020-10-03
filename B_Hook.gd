@@ -48,7 +48,19 @@ func _input(event):
 		unhook()
 
 func _physics_process(delta):
+	
 	ray.cast_to = (get_global_mouse_position() - pawn.position).normalized() * hook_length
+	
+	#debug_draw.position = ray.cast_to + pawn.position
+	
+	if ray.is_colliding():
+		$End.global_position = ray.get_collision_point()
+		$"End/CPUParticles2D".visible=true
+	else:
+		$End.global_position=ray.cast_to
+		$"End/CPUParticles2D".visible=false
+	$beam.rotation=ray.cast_to.angle()
+	$beam.region_rect.end.x=$End.position.length()
 
 func ray_cast() -> Vector2:
 	
