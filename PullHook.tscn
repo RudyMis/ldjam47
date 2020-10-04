@@ -5,3 +5,4 @@
 
 [node name="Hook" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+hook_time = 0.3

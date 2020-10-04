@@ -23,7 +23,7 @@ export (float) var acceleration_time
 export (float) var deceleration_time
 export (float) var jump_height
 export (float) var jump_time
-export (float) var fall_speed
+export (float) var force_time
 
 export (NodePath) var hook_path
 export (NodePath) var sprite_path
@@ -34,6 +34,8 @@ var input_axis : Vector2
 var move_tween : Node
 var move_state = Move.IDLE
 var direction_changed := false
+var current_force := Vector2.ZERO
+
 
 # Jumping
 var jump_tween : Node
@@ -46,6 +48,8 @@ onready var hook = get_node(hook_path)
 # Postać kontrolowana przez ten węzeł
 onready var pawn = get_parent()
 onready var sprite = get_node(sprite_path)
+
+
 
 func _ready():
 	# Creates tween for smooth movement
@@ -86,18 +90,29 @@ func _physics_process(_delta):
 	else:
 		move()
 	
-	pawn.move_and_slide(current_velocity, Vector2(0, -1))
+	pawn.move_and_slide(current_velocity + current_force, Vector2(0, -1))
 	
 	if !b_hook:
 		collision()
 
 func _on_hook():
+	sprite.animation = "hook"
 	b_hook = true
 
 func _on_unhook():
+	apply_force(Vector2(current_velocity.x / 2, current_velocity.y))
 	move_state = Move.IDLE
+	direction_changed = true
 	jump_state = Jump.IDLE
 	b_hook = false
+
+func apply_force(var force : Vector2):
+	
+	current_force = force
+	
+	yield(get_tree().create_timer(force_time), "timeout")
+	
+	current_force = Vector2.ZERO
 
 func move():
 	# Jumping
@@ -119,8 +134,15 @@ func move():
 func collision():
 	
 	if pawn.is_on_floor():
-		jump_state = Jump.IDLE
-		current_velocity.y = 0
+		if jump_state != Jump.IDLE:
+			jump_state = Jump.IDLE
+			current_velocity.y = 5
+			current_force = Vector2.ZERO
+			sprite.animation = "land"
+			yield(sprite, "animation_finished")
+			if sprite.animation == "land":
+				sprite.animation = "idle"
+
 	#elif pawn.is_on_wall():
 	#	jump_state = Jump.IDLE
 	
@@ -171,6 +193,7 @@ func stop():
 func jump():
 	
 	jump_state = Jump.JUMP
+	sprite.animation = "jump"
 	
 	# Upward in godot is negative
 	var initial_velocity = -2.0 * jump_height / jump_time
@@ -187,6 +210,7 @@ func jump():
 func fall():
 	
 	jump_state = Jump.FALL
+	sprite.animation = "fall"
 	do_jump = false
 	
 	var fall_velocity = 2.0 * jump_height / jump_time
