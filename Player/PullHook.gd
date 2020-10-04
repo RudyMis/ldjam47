@@ -12,15 +12,18 @@ func _ready():
 
 
 func hook(var point : Vector2):
+	if point == Vector2.INF:
+		return
+	
 	.hook(point)
 	
 	tween = Tween.new()
 	add_child(tween)
 	
-	var direction = (hook_point - pawn.position).normalized()
+	var direction = (hook_point - pawn.global_position).normalized()
 	
 	var t = hook_time
-	var s = pawn.position.distance_to(hook_point)
+	var s = pawn.global_position.distance_to(hook_point)
 	
 	var v = 4 * s / (2 * t + t * t)
 	
@@ -29,7 +32,7 @@ func hook(var point : Vector2):
 	
 	yield(tween, "tween_all_completed")
 	
-	unhook()
+	.unhook()
 
 func move(var _velocity : Vector2):
 	

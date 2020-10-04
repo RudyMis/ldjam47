@@ -39,9 +39,7 @@ func _input(_event):
 		input_axis -= 1
 	
 	if Input.is_action_just_pressed("hook"):
-		var pos = ray_cast()
-		if pos != Vector2.INF:
-			hook(pos)
+		hook(ray_cast())
 	if Input.is_action_just_released("hook"):
 		unhook()
 
@@ -50,7 +48,7 @@ func _physics_process(_delta):
 	ray.cast_to = (get_global_mouse_position() - pawn.global_position).normalized() * hook_length
 	
 	if hook_state == Hook.HOOK:
-		$End.position = get_global_mouse_position() - pawn.global_position
+		$End.global_position = hook_point
 		$beam.rotation = ($End.global_position - pawn.global_position).angle()
 		$beam.region_rect.end.x = $End.position.length()
 		$beam.visible = true
@@ -67,6 +65,9 @@ func ray_cast() -> Vector2:
 	return Vector2.INF
 
 func hook(var point : Vector2):
+	
+	if point == Vector2.INF:
+		return
 	
 	hook_state = Hook.HOOK
 	hook_point = point

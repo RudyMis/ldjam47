@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/MovementComponent.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Assets/skok4.png" type="Texture" id=19]
 [ext_resource path="res://Assets/skok1.png" type="Texture" id=20]
 [ext_resource path="res://Assets/skok3.png" type="Texture" id=21]
+[ext_resource path="res://Player/PullHook.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 7 )
@@ -73,12 +74,14 @@ deceleration_time = 0.15
 jump_height = 32.0
 jump_time = 0.3
 force_time = 0.5
-hook_path = NodePath("../../Player/Hook")
+hook_path = NodePath("../Hook")
 sprite_path = NodePath("../../Player/Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "hook"
 playing = true
+
+[node name="Pull" parent="." instance=ExtResource( 22 )]
 
 [node name="Hook" parent="." instance=ExtResource( 3 )]
