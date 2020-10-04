@@ -2,6 +2,7 @@ extends Node2D
 
 
 export (PackedScene) var Player
+export (Array, PackedScene) var nearbyScenes
 
 var player = null
 var old_player = null
