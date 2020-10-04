@@ -1,4 +1,12 @@
-- name: godot-ci
-  # You may pin to the exact commit or the version.
-  # uses: aBARICHELLO/godot-ci@3458f6124b03168c0aae774950fdc6a2c9bee0c3
-  uses: aBARICHELLO/godot-ci@3.2.2
+name: "godot-ci export"
+on: push
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: godot-ci
+      # You may pin to the exact commit or the version.
+      # uses: aBARICHELLO/godot-ci@3458f6124b03168c0aae774950fdc6a2c9bee0c3
+        uses: aBARICHELLO/godot-ci@3.2.2
