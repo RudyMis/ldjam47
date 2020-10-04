@@ -8,8 +8,8 @@ enum Direction {
 }
 
 export (Vector2) var move = Vector2(240, 144)
-export (TileSet) var tileset
-
+export (String) var first_level = "res://Levels/Level1.tscn"
+ 
 var current_scene = null
 var next_scene
 var current_scene_instance
@@ -19,7 +19,7 @@ onready var tween = $Tween
 
 func _ready():
 	Events.connect("LoadScene", self, "on_ChangeScene")
-	Events.emit_signal("LoadScene", "res://Levels/Level1.tscn", Direction.UP)
+	Events.emit_signal("LoadScene", first_level, Direction.UP)
 	
 
 func on_ChangeScene(scene, direction):

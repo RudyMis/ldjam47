@@ -79,7 +79,7 @@ sprite_path = NodePath("../../Player/Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "hook"
+animation = "idle"
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]

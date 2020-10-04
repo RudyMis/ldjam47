@@ -142,13 +142,15 @@ func collision():
 			yield(sprite, "animation_finished")
 			if sprite.animation == "land":
 				sprite.animation = "idle"
-
+	
 	#elif pawn.is_on_wall():
 	#	jump_state = Jump.IDLE
 	
 	elif jump_state == Jump.IDLE:
 		fall()
-		
+	
+	if pawn.is_on_wall():
+		current_force.x = 0
 
 # Starts moving
 func start(direction : float):

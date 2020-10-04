@@ -13,11 +13,12 @@ export (Direction) var direction
 func _ready():
 	pass
 
+func enable():
+	
+	monitoring = true
 
 func _on_Exit(body):
 	if next != "":
 		
 		Events.emit_signal("LoadScene", next, direction)
 		
-		
-
