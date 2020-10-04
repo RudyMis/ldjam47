@@ -19,7 +19,7 @@ onready var tween = $Tween
 
 func _ready():
 	Events.connect("LoadScene", self, "on_ChangeScene")
-	Events.emit_signal("LoadScene", first_level, Direction.UP, 0)
+	Events.emit_signal("LoadScene", first_level, Direction.UP, 1)
 	
 
 func on_ChangeScene(scene, direction, spawn_number):

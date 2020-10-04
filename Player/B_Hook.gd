@@ -9,6 +9,7 @@ export (NodePath) var debug_path
 export (float) var acceleration = 1
 export (float) var max_speed = 200
 export (float) var force = 200
+export (Vector2) var force_direction
 
 onready var ray = $RayCast2D
 
@@ -97,7 +98,7 @@ func unhook():
 		
 	hook_state = Hook.IDLE
 		
-	emit_signal("Unhook", Vector2(force * direction.x / 2, force * direction.y))
+	emit_signal("Unhook", force * direction * force_direction)
 
 func move(var velocity : Vector2) -> Vector2:
 	var pos = pawn.global_position

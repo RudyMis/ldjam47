@@ -7,3 +7,4 @@
 script = ExtResource( 1 )
 max_speed = 200.0
 force = 200.0
+force_direction = Vector2( 0.5, 1 )

@@ -74,7 +74,7 @@ deceleration_time = 0.15
 jump_height = 32.0
 jump_time = 0.3
 force_time = 0.5
-hook_path = NodePath("../Pull")
+hook_path = NodePath("../Hook")
 sprite_path = NodePath("../../Player/Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -84,5 +84,6 @@ frame = 1
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]
+force_direction = Vector2( 0, 0 )
 
 [node name="Hook" parent="." instance=ExtResource( 3 )]
