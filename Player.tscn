@@ -58,7 +58,7 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D"]
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -73,8 +73,8 @@ deceleration_time = 0.15
 jump_height = 32.0
 jump_time = 0.3
 force_time = 0.5
-hook_path = NodePath("../Hook")
-sprite_path = NodePath("../Sprite")
+hook_path = NodePath("../../Player/Hook")
+sprite_path = NodePath("../../Player/Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )

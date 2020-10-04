@@ -49,13 +49,13 @@ func _physics_process(_delta):
 	
 	ray.cast_to = (get_global_mouse_position() - pawn.position).normalized() * hook_length
 	
-	if ray.is_colliding():
-		$End.global_position = ray.get_collision_point()
-		$beam.rotation = ray.cast_to.angle()
+	if hook_state == Hook.HOOK:
+		$End.global_position = hook_point
+		$beam.rotation = (hook_point - pawn.position).angle()
 		$beam.region_rect.end.x = $End.position.length()
+		$beam.visible = true
 	else:
-		$End.global_position=ray.cast_to
-		
+		$beam.visible = false
 	
 
 func ray_cast() -> Vector2:
