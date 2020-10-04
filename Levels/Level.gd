@@ -2,8 +2,9 @@ extends Node2D
 
 
 export (PackedScene) var Player
-export (Array, PackedScene) var nearbyScenes
+export (Array, NodePath) var restart_points
 
+var from = 0
 var player = null
 var old_player = null
 
@@ -35,7 +36,7 @@ func restart():
 		player = Player.instance()
 		
 		add_child(player)
-		player.position = $PlayerStart.position
+		player.position = get_node(restart_points[from]).position
 		
 
 func get_camera_position():

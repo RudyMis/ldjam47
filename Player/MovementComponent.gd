@@ -34,6 +34,8 @@ var input_axis : Vector2
 var move_tween : Node
 var move_state = Move.IDLE
 var direction_changed := false
+
+var force_tween : Node
 var current_force := Vector2.ZERO
 
 
@@ -55,14 +57,17 @@ func _ready():
 	# Creates tween for smooth movement
 	move_tween = Tween.new()
 	add_child(move_tween)
-	move_tween.set_owner(get_owner())
 	
 	jump_tween = Tween.new()
 	add_child(jump_tween)
-	jump_tween.set_owner(get_owner())
+	
+	force_tween = Tween.new()
+	add_child(force_tween)
 	
 	hook.connect("Hook", self, "_on_hook")
 	hook.connect("Unhook", self, "_on_unhook")
+	
+	hook.b_active = true
 	
 	# Checks if parent is moveable or not
 	if !pawn.is_class("KinematicBody2D"):
@@ -97,10 +102,12 @@ func _physics_process(_delta):
 
 func _on_hook():
 	sprite.animation = "hook"
+	force_tween.remove_all()
+	current_force = Vector2.ZERO
 	b_hook = true
 
-func _on_unhook():
-	apply_force(Vector2(current_velocity.x / 2, current_velocity.y))
+func _on_unhook(var force):
+	apply_force(force)
 	move_state = Move.IDLE
 	direction_changed = true
 	jump_state = Jump.IDLE
@@ -110,9 +117,8 @@ func apply_force(var force : Vector2):
 	
 	current_force = force
 	
-	yield(get_tree().create_timer(force_time), "timeout")
-	
-	current_force = Vector2.ZERO
+	force_tween.interpolate_property(self, "current_force", current_force, Vector2.ZERO, jump_time * 2, Tween.TRANS_QUAD, Tween.EASE_IN)
+	force_tween.start()
 
 func move():
 	# Jumping
@@ -137,11 +143,19 @@ func collision():
 		if jump_state != Jump.IDLE:
 			jump_state = Jump.IDLE
 			current_velocity.y = 5
+			
+			force_tween.remove_all()
 			current_force = Vector2.ZERO
-			sprite.animation = "land"
-			yield(sprite, "animation_finished")
-			if sprite.animation == "land":
-				sprite.animation = "idle"
+			
+			# Ble
+			if move_state == Move.IDLE:
+				sprite.animation = "land"
+				yield(sprite, "animation_finished")
+				if sprite.animation == "land":
+					sprite.animation = "idle"
+			elif move_state == Move.MOVE:
+				sprite.animation = "run"
+				
 	
 	#elif pawn.is_on_wall():
 	#	jump_state = Jump.IDLE
@@ -150,7 +164,8 @@ func collision():
 		fall()
 	
 	if pawn.is_on_wall():
-		current_force.x = 0
+		force_tween.remove_all()
+		current_force = Vector2.ZERO
 
 # Starts moving
 func start(direction : float):

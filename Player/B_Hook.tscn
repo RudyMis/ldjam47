@@ -21,6 +21,7 @@ visible = false
 texture = SubResource( 1 )
 
 [node name="beam" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( 0, -1 )
@@ -31,6 +32,7 @@ region_rect = Rect2( 0, 0, 4, 2 )
 position = Vector2( 200, 0 )
 
 [node name="Sprite" type="Sprite" parent="End"]
+visible = false
 rotation = 1.5708
 z_index = 1
 z_as_relative = false

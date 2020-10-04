@@ -19,10 +19,10 @@ onready var tween = $Tween
 
 func _ready():
 	Events.connect("LoadScene", self, "on_ChangeScene")
-	Events.emit_signal("LoadScene", first_level, Direction.UP)
+	Events.emit_signal("LoadScene", first_level, Direction.UP, 0)
 	
 
-func on_ChangeScene(scene, direction):
+func on_ChangeScene(scene, direction, spawn_number):
 	
 	next_scene = load(scene)
 	
@@ -32,6 +32,8 @@ func on_ChangeScene(scene, direction):
 	
 	yield(get_tree(), "idle_frame")
 	add_child(next_scene_instance)
+	
+	next_scene_instance.from = spawn_number
 	
 	if current_scene_instance:
 		
@@ -58,8 +60,7 @@ func on_ChangeScene(scene, direction):
 func move_camera():
 #	yield(get_tree(), "idle_frame")
 	
-	
-	tween.interpolate_property($Camera2D, "position", $Camera2D.position, next_scene_instance.get_camera_position(), 0.5, Tween.TRANS_CIRC, Tween.EASE_IN_OUT)
+	tween.interpolate_property($Camera2D, "position", $Camera2D.position, next_scene_instance.get_camera_position(), 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	tween.start()
 	
 	yield(tween, "tween_all_completed")
