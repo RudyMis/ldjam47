@@ -2,5 +2,8 @@
 
 [ext_resource path="res://cam_script.gd" type="Script" id=1]
 
-[node name="Camera2D" type="Camera2D"]
+[node name="Kamera" type="Camera2D" groups=[
+"kamera",
+]]
+current = true
 script = ExtResource( 1 )

@@ -47,17 +47,17 @@ func _input(_event):
 
 func _physics_process(_delta):
 	
-	ray.cast_to = (get_global_mouse_position() - pawn.position).normalized() * hook_length
+	ray.cast_to = (get_global_mouse_position() - pawn.global_position).normalized() * hook_length
 	
-	if hook_state == Hook.HOOK:
-		$End.global_position = hook_point
-		$beam.rotation = (hook_point - pawn.position).angle()
-		$beam.region_rect.end.x = $End.position.length()
-		$beam.visible = true
-		$End/Sprite.visible = true
-	else:
-		$End/Sprite.visible = false
-		$beam.visible = false
+#	if hook_state == Hook.HOOK:
+	$End.position = get_global_mouse_position() - pawn.global_position
+	$beam.rotation = ($End.global_position - pawn.global_position).angle()
+	$beam.region_rect.end.x = $End.position.length()
+#		$beam.visible = true
+#		$End/Sprite.visible = true
+#	else:
+#		$End/Sprite.visible = false
+#		$beam.visible = false
 	
 
 func ray_cast() -> Vector2:

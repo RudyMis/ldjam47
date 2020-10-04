@@ -24,6 +24,11 @@ config/name="ldjam47"
 run/main_scene="res://Levels/Level.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Events="*res://Autoload/Events.gd"
+SceneHandler="*res://Autoload/SceneHandler.gd"
+
 [display]
 
 window/size/width=240
