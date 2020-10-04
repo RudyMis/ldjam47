@@ -10,7 +10,10 @@ var old_player = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 #	restart()
-	pass
+	
+	yield(get_tree().create_timer(1.0), "timeout")
+	
+	get_tree().call_group("Exit", "enable")
 
 func _input(event):
 	
@@ -37,3 +40,4 @@ func restart():
 
 func get_camera_position():
 	return $CameraPosition.global_position
+
