@@ -32,16 +32,6 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 18 ) ],
-"loop": false,
-"name": "fall",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "jump",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
 "loop": false,
 "name": "land",
@@ -51,6 +41,16 @@ animations = [ {
 "loop": false,
 "name": "hook",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 18 ) ],
+"loop": false,
+"name": "fall",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 13 ) ],
 "loop": true,

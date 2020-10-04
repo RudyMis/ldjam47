@@ -19,7 +19,12 @@ func hook(var point : Vector2):
 	
 	var direction = (hook_point - pawn.position).normalized()
 	
-	tween.interpolate_property(self, "velocity", Vector2.ZERO, direction * max_speed, hook_time, Tween.TRANS_LINEAR)
+	var t = hook_time
+	var s = pawn.position.distance_to(hook_point)
+	
+	var v = 4 * s / (2 * t + t * t)
+	
+	tween.interpolate_property(self, "velocity", direction * v / 2, direction * v, hook_time, Tween.TRANS_LINEAR)
 	tween.start()
 	
 	yield(tween, "tween_all_completed")

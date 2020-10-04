@@ -147,7 +147,6 @@ func collision():
 	#	jump_state = Jump.IDLE
 	
 	elif jump_state == Jump.IDLE:
-		print("Tu")
 		fall()
 		
 
