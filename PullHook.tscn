@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://B_Hook.tscn" type="PackedScene" id=1]
-[ext_resource path="res://PullHook.gd" type="Script" id=2]
-
-[node name="Hook" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
-hook_time = 0.3

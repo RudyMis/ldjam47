@@ -1,4 +1,4 @@
-extends "res://B_Hook.gd"
+extends "res://Player/B_Hook.gd"
 
 export (float) var hook_time
 

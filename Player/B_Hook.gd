@@ -54,7 +54,9 @@ func _physics_process(_delta):
 		$beam.rotation = (hook_point - pawn.position).angle()
 		$beam.region_rect.end.x = $End.position.length()
 		$beam.visible = true
+		$End/Sprite.visible = true
 	else:
+		$End/Sprite.visible = false
 		$beam.visible = false
 	
 
@@ -69,19 +71,15 @@ func hook(var point : Vector2):
 	hook_state = Hook.HOOK
 	hook_point = point
 	
-	start_distance = hook_point.distance_to(pawn.position)
+	$End.rotation = ray.get_collision_normal().angle() + PI
 	
-	$beam.visible = true
-	$"End/CPUParticles2D".visible = true
+	start_distance = hook_point.distance_to(pawn.position)
 	
 	emit_signal("Hook")
 
 func unhook():
 	
 	hook_state = Hook.IDLE
-	
-	$"End/CPUParticles2D".visible = false
-	$beam.visible = false
 	
 	emit_signal("Unhook")
 
