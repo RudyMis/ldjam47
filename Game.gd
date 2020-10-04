@@ -21,8 +21,6 @@ func _ready():
 	Events.connect("LoadScene", self, "on_ChangeScene")
 	Events.emit_signal("LoadScene", "res://Levels/Level1.tscn", Direction.UP)
 	
-func _process(delta):
-	$Sprite.position = get_global_mouse_position()
 
 func on_ChangeScene(scene, direction):
 	
