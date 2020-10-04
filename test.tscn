@@ -7,7 +7,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
-position = Vector2( 70.5635, 25.0834 )
+position = Vector2( 79.5303, 68.5016 )
 
 [node name="Sprite" parent="KinematicBody2D" index="2"]
 frames = ExtResource( 2 )
