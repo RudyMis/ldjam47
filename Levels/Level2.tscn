@@ -12,6 +12,7 @@ tile_data = PoolIntArray( -262139, 5, 0, -262138, 5, 1, -262137, 5, 1, -262136, 
 position = Vector2( 70.2343, 85.1493 )
 
 [node name="Exit" parent="." index="3" instance=ExtResource( 2 )]
+
 position = Vector2( 80.0794, 123.627 )
 next = "res://Levels/Level1.tscn"
 direction = 1
@@ -20,3 +21,4 @@ direction = 1
 position = Vector2( 293.565, 23.9686 )
 next = "res://Levels/Level3.tscn"
 direction = 2
+
