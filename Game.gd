@@ -61,21 +61,21 @@ func on_ChangeScene(scene, direction, spawn_number):
 		yield(move_camera(), "completed")
 		
 		current_scene_instance.free()
+
 	else:
 		$Camera2D.position = next_scene_instance.get_camera_position()
 	
 	current_scene_instance = next_scene_instance
 	current_scene = scene
 	
-	print("Tu")
-	
 	if !player:
 		restart()
 	
-	print("Tam")
-	
 	if open_door.has(current_scene):
 		get_tree().call_group("Door", "open")
+		
+	
+	print("Palam")
 
 func on_DoorOpen():
 	
