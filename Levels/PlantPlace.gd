@@ -1,5 +1,7 @@
 extends Area2D
 
+var b_ma_kwiatek = false
+
 func _ready():
 	pass
 
@@ -8,7 +10,9 @@ func _on_Area2D_body_entered(body):
 		var flower = body.plant_flower()
 		if flower == null:
 			return
-
+		
+		b_ma_kwiatek = true
+		
 		if $Sprite.texture == null:
 			$Sprite.texture = flower
 		
