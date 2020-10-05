@@ -67,9 +67,12 @@ func on_ChangeScene(scene, direction, spawn_number):
 	current_scene_instance = next_scene_instance
 	current_scene = scene
 	
+	print("Tu")
+	
 	if !player:
 		restart()
 	
+	print("Tam")
 	
 	if open_door.has(current_scene):
 		get_tree().call_group("Door", "open")
