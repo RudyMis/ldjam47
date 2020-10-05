@@ -19,6 +19,10 @@ var player = null
 export (PackedScene) var Player
 
 var open_door : Array
+var flowers : Array
+var b_hook = false
+
+var flower_scenes : Array
 
 onready var tween = $Tween
 
@@ -26,6 +30,8 @@ func _ready():
 	Events.connect("LoadScene", self, "on_ChangeScene")
 	Events.emit_signal("LoadScene", first_level, Direction.UP, 0)
 	Events.connect("DoorOpen", self, "on_DoorOpen")
+	Events.connect("Flower", self, "on_Flower")
+	Events.connect("ChangeHook", self, "on_Hook")
 
 func _input(event):
 	
@@ -68,8 +74,12 @@ func on_ChangeScene(scene, direction, spawn_number):
 	current_scene_instance = next_scene_instance
 	current_scene = scene
 	
+	
 	if !player:
 		restart()
+	
+	if flower_scenes.has(current_scene):
+		get_tree().call_group("Flower", "queue_free")
 	
 	if open_door.has(current_scene):
 		get_tree().call_group("Door", "open")
@@ -77,6 +87,15 @@ func on_ChangeScene(scene, direction, spawn_number):
 func on_DoorOpen():
 	
 	open_door.push_back(current_scene)
+
+func on_Flower(flower):
+	flowers.push_back(flower)
+	flower_scenes.push_back(current_scene)
+	player.add_flower(flower)
+
+func on_Hook():
+	player.movement.change_hook()
+	b_hook = !b_hook
 
 func restart():
 	get_tree().call_group("Player", "die")
@@ -90,6 +109,12 @@ func restart():
 		add_child(player)
 		player.name = "player"
 		player.position = current_scene_instance.get_restart_point()
+		
+		if b_hook:
+			player.movement.change_hook()
+		
+		for flower in flowers:
+			player.add_flower(flower)
 
 func get_map() -> TileMap:
 	if current_scene_instance:

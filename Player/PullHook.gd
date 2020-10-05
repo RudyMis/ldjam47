@@ -13,9 +13,9 @@ func hook(var point : Vector2):
 
 func move(var _velocity : Vector2):
 	
-	direction = (hook_point - pawn.global_position + Vector2(0, -8)).normalized()
+	direction = (hook_point - global_position).normalized()
 	
-	var delta = pawn.global_position.distance_to(hook_point + Vector2(0, -8)) / start_distance
+	var delta = global_position.distance_to(hook_point) / start_distance
 	
 	if delta < 0.2:
 		.unhook()

@@ -77,17 +77,20 @@ jump_height = 32.0
 jump_time = 0.3
 force_time = 0.5
 hook_path = NodePath("../Hook")
+other_hook_path = NodePath("../Pull")
 sprite_path = NodePath("../../Player/Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]
 position = Vector2( 2.5, -11.5 )
+force = 250.0
+force_dir = Vector2( 0.5, 1 )
 
 [node name="Hook" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2.5, -11.5 )
@@ -100,12 +103,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
-margin_top = 65.0
-margin_right = 240.0
-margin_bottom = 79.0
-text = "HELLO"
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 235.0
+margin_bottom = 139.0
+custom_constants/separation = 10
+[connection signal="Hook" from="Pull" to="MovementComponent" method="_on_hook"]
+[connection signal="Unhook" from="Pull" to="MovementComponent" method="_on_unhook"]
+[connection signal="Hook" from="Hook" to="MovementComponent" method="_on_hook"]
+[connection signal="Unhook" from="Hook" to="MovementComponent" method="_on_unhook"]

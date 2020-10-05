@@ -24,7 +24,7 @@ var b_active = false
 # Hook
 var hook_point
 var hook_state = Hook.IDLE
-var direction
+var direction = Vector2.ZERO
 
 var start_distance = 0
 

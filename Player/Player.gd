@@ -4,10 +4,11 @@ signal dead
 
 onready var movement = $MovementComponent
 
-var map  = null
+var map = null
 
 func _ready():
-	Events.connect("LoadScene", self, "on_loadScene")
+	pass
+
 
 func _process(delta):
 	# Kolce
@@ -21,21 +22,20 @@ func _process(delta):
 		if is_on_floor():
 			cell_pos.push_back(map.world_to_map(global_position - map.global_position))
 		if is_on_ceiling():
-			cell_pos.push_back(map.world_to_map(global_position - map.global_position) + Vector2(0, -1))
+			cell_pos.push_back(map.world_to_map(global_position - map.global_position) + Vector2(0, -2))
 		if is_on_wall():
 			cell_pos.push_back(map.world_to_map(global_position - map.global_position) + Vector2(0, -1))
 			cell_pos.push_back(map.world_to_map(global_position - map.global_position))
 		
+		
 		for pos in cell_pos:
+
 			var cell = map.get_cellv(pos)
 			if cell == 6:
 				mark_dead()
 				return
 		
 		
-
-func on_loadScene(scene, direction, spawn_number):
-	map = null
 
 func mark_dead():
 	get_parent().restart()
@@ -52,3 +52,32 @@ func die():
 	
 	queue_free()
 
+func clear_flowers():
+	for child in $CanvasLayer/MarginContainer/HBoxContainer.get_children():
+		child.queue_free()
+
+func plant_flower():
+	
+	if get_parent().flowers.size() == 0:
+		return null
+	
+	var flower = get_parent().flowers[0]
+	get_parent().flowers.pop_front()
+	
+	clear_flowers()
+	
+	for one in get_parent().flowers:
+		add_flower(one)
+	
+	return flower
+
+func add_flower(flower):
+	
+	var texture_rect = TextureRect.new()
+	
+	$CanvasLayer/MarginContainer/HBoxContainer.add_child(texture_rect)
+	texture_rect.texture = flower
+
+
+func _on_hook():
+	pass # Replace with function body.

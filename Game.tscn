@@ -6,7 +6,6 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
-first_level = "res://Levels/Level2.tscn"
 Player = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]

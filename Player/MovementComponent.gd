@@ -26,6 +26,7 @@ export (float) var jump_time
 export (float) var force_time
 
 export (NodePath) var hook_path
+export (NodePath) var other_hook_path
 export (NodePath) var sprite_path
 
 # Movement
@@ -46,6 +47,7 @@ var do_jump = false
 
 var b_hook = false
 onready var hook = get_node(hook_path)
+onready var other_hook = get_node(other_hook_path)
 
 # Postać kontrolowana przez ten węzeł
 onready var pawn = get_parent()
@@ -63,9 +65,6 @@ func _ready():
 	
 	force_tween = Tween.new()
 	add_child(force_tween)
-	
-	hook.connect("Hook", self, "_on_hook")
-	hook.connect("Unhook", self, "_on_unhook")
 	
 	hook.b_active = true
 	
@@ -112,18 +111,17 @@ func _on_hook():
 	b_hook = true
 
 func _on_unhook(var force):
-	print(force)
 	apply_force(force)
 	move_state = Move.IDLE
 	direction_changed = true
 	jump_state = Jump.IDLE
 	b_hook = false
 
-func apply_force(var force : Vector2):
+func apply_force(var force : Vector2, time = jump_time * 2):
 	
 	current_force = force
 	
-	force_tween.interpolate_property(self, "current_force", current_force, Vector2.ZERO, jump_time * 2, Tween.TRANS_CUBIC, Tween.EASE_IN)
+	force_tween.interpolate_property(self, "current_force", current_force, Vector2.ZERO, time, Tween.TRANS_CUBIC, Tween.EASE_IN)
 	force_tween.start()
 
 func move():
@@ -173,8 +171,9 @@ func collision():
 		fall()
 	
 	if pawn.is_on_wall():
+		var time = force_tween.get_runtime()
 		force_tween.remove_all()
-		current_force = Vector2.ZERO
+		apply_force(Vector2(0, current_force.y), time) 
 
 # Starts moving
 func start(direction : float):
@@ -249,3 +248,15 @@ func fall():
 
 func is_hooked():
 	return b_hook
+
+func change_hook():
+	if b_hook:
+		yield(hook, "Unhook")
+	
+	hook.b_active = false
+	
+	var pom = hook
+	hook = other_hook
+	other_hook = pom
+	
+	hook.b_active = true
