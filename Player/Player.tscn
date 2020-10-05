@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/MovementComponent.gd" type="Script" id=2]
@@ -22,6 +22,10 @@
 [ext_resource path="res://Assets/skok1.png" type="Texture" id=20]
 [ext_resource path="res://Assets/skok3.png" type="Texture" id=21]
 [ext_resource path="res://Player/PullHook.tscn" type="PackedScene" id=22]
+[ext_resource path="res://ide.gd" type="Script" id=24]
+[ext_resource path="res://rzut.gd" type="Script" id=25]
+[ext_resource path="res://hard_shoes.ogg" type="AudioStream" id=27]
+[ext_resource path="res://rzut.ogg" type="AudioStream" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 7 )
@@ -84,7 +88,7 @@ sprite_path = NodePath("../../Player/Sprite")
 position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]
@@ -117,6 +121,16 @@ margin_top = 5.0
 margin_right = 235.0
 margin_bottom = 139.0
 custom_constants/separation = 10
+
+[node name="Rzut" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 28 )
+volume_db = -5.0
+script = ExtResource( 25 )
+
+[node name="Ide" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 27 )
+volume_db = -5.0
+script = ExtResource( 24 )
 [connection signal="Hook" from="Pull" to="MovementComponent" method="_on_hook"]
 [connection signal="Unhook" from="Pull" to="MovementComponent" method="_on_unhook"]
 [connection signal="Hook" from="Hook" to="MovementComponent" method="_on_hook"]

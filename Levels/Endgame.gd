@@ -9,4 +9,4 @@ func _process(delta):
 		if !child.b_ma_kwiatek:
 			return
 	
-	 Events.emit_signal("LoadScene", "res://Levels/End.tscn", 0)
+	Events.emit_signal("LoadScene", "res://Levels/End.tscn", 0, 0)

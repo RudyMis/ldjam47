@@ -58,11 +58,7 @@ func clear_flowers():
 
 func plant_flower():
 	
-	if get_parent().flowers.size() == 0:
-		return null
-	
-	var flower = get_parent().flowers[0]
-	get_parent().flowers.pop_front()
+	var flower = get_parent().plant_flower()
 	
 	clear_flowers()
 	

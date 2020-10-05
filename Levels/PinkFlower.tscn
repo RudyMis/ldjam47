@@ -8,4 +8,5 @@ texture = ExtResource( 2 )
 
 [node name="CPUParticles2D" parent="." index="0"]
 position = Vector2( -0.87088, -3.17112 )
-color = Color( 0.603922, 0, 0.607843, 1 )
+z_index = -1
+color = Color( 0.380392, 0.176471, 0.384314, 1 )

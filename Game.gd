@@ -23,6 +23,7 @@ var flowers : Array
 var b_hook = false
 
 var flower_scenes : Array
+var planted_flowers : Array
 
 onready var tween = $Tween
 
@@ -83,10 +84,29 @@ func on_ChangeScene(scene, direction, spawn_number):
 	
 	if open_door.has(current_scene):
 		get_tree().call_group("Door", "open")
+		
+	var i = 0
+	for kwiatek in get_tree().get_nodes_in_group("Kwiatki"):
+		if planted_flowers.size() > i:
+			kwiatek.plant(planted_flowers[i])
+			i += 1
+		
 
 func on_DoorOpen():
 	
 	open_door.push_back(current_scene)
+
+func plant_flower():
+	
+	if flowers.size() == 0:
+		return null
+	
+	var texture = flowers[0]
+	flowers.pop_front()
+	
+	planted_flowers.push_back(texture)
+	
+	return texture
 
 func on_Flower(flower):
 	flowers.push_back(flower)
