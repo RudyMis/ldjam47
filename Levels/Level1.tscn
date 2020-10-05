@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Exit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/additions/sign2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/additions/light_front.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/additions/light_back.tscn" type="PackedScene" id=5]
 
 [node name="Level" instance=ExtResource( 1 )]
 restart_points = [ NodePath("PlayerStart"), NodePath("Back") ]
@@ -18,3 +21,13 @@ next = "res://Levels/Level2.tscn"
 
 [node name="Back" type="Node2D" parent="." index="4"]
 position = Vector2( 78.4301, -12.2842 )
+
+[node name="light_front" parent="." index="5" instance=ExtResource( 4 )]
+position = Vector2( 235.722, 91.0065 )
+frame = 6
+
+[node name="light_back" parent="light_front" index="0" instance=ExtResource( 5 )]
+position = Vector2( -41.8474, -0.256531 )
+
+[node name="sign2" parent="light_front/light_back" index="0" instance=ExtResource( 3 )]
+position = Vector2( 58.875, 0.25 )

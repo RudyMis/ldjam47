@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Exit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/additions/chair.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/additions/plants.tscn" type="PackedScene" id=4]
 
 [node name="Level" instance=ExtResource( 1 )]
 restart_points = [ NodePath("PlayerStart"), NodePath("Back"), NodePath("UpperStart") ]
@@ -34,3 +36,15 @@ direction = 2
 
 [node name="Back" type="Node2D" parent="." index="7"]
 position = Vector2( 269.058, 93.0554 )
+
+[node name="additions" type="Node2D" parent="." index="8"]
+
+[node name="plants" parent="additions" index="0" instance=ExtResource( 4 )]
+position = Vector2( 215.816, 92.1013 )
+tile_data = PoolIntArray( 131071, 1, 0, 65536, 1, 1, 65537, 1, 1, 65538, 1, 2, 65539, 1, 4, 65540, 1, 3, 65541, 1, 0, 65542, 1, 2, 1179652, 0, 0 )
+
+[node name="chair" parent="additions" index="1" instance=ExtResource( 3 )]
+position = Vector2( 227.784, 99.9026 )
+
+[node name="chair2" parent="additions" index="2" instance=ExtResource( 3 )]
+position = Vector2( 202.585, 100.375 )
