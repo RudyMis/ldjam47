@@ -4,13 +4,23 @@
 [ext_resource path="res://Levels/Flower.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4.51861, 3.84129 )
+extents = Vector2( 4.51861, 4.38089 )
 
 [node name="Flower" type="Sprite" groups=[
 "Flower",
 ]]
+z_index = 1
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_as_relative = false
+lifetime = 3.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+damping = 1.0
+color = Color( 0.607843, 0, 0, 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

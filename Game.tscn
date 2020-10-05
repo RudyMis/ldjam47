@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Pikselowe_to.png" type="Texture" id=3]
+[ext_resource path="res://background.ogg" type="AudioStream" id=4]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+first_level = "res://Levels/Level16.tscn"
 Player = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -26,3 +28,7 @@ texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
