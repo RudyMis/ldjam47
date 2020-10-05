@@ -73,9 +73,6 @@ func on_ChangeScene(scene, direction, spawn_number):
 	
 	if open_door.has(current_scene):
 		get_tree().call_group("Door", "open")
-		
-	
-	print("Palam")
 
 func on_DoorOpen():
 	

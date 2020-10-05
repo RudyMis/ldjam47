@@ -7,7 +7,7 @@ onready var movement = $MovementComponent
 var map  = null
 
 func _ready():
-	pass # Replace with function body.
+	Events.connect("LoadScene", self, "on_loadScene")
 
 func _process(delta):
 	# Kolce
@@ -31,6 +31,11 @@ func _process(delta):
 			if cell == 6:
 				mark_dead()
 				return
+		
+		
+
+func on_loadScene(scene, direction, spawn_number):
+	map = null
 
 func mark_dead():
 	get_parent().restart()
