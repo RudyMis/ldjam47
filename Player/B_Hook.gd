@@ -46,11 +46,11 @@ func _physics_process(_delta):
 	if !b_active:
 		return
 	
-	ray.cast_to = (get_global_mouse_position() - pawn.global_position).normalized() * hook_length
+	ray.cast_to = (get_global_mouse_position() - global_position).normalized() * hook_length
 	
 	if hook_state == Hook.HOOK:
 		$End.global_position = hook_point
-		$beam.rotation = ($End.global_position - pawn.global_position).angle()
+		$beam.rotation = ($End.global_position - global_position).angle()
 		$beam.region_rect.end.x = $End.position.length()
 		$beam.visible = true
 		$End/Sprite.visible = true
@@ -75,7 +75,7 @@ func hook(var point : Vector2):
 	
 	$End.rotation = ray.get_collision_normal().angle() + PI
 	
-	start_distance = hook_point.distance_to(pawn.global_position)
+	start_distance = hook_point.distance_to(global_position)
 	
 	emit_signal("Hook")
 
@@ -91,7 +91,7 @@ func unhook():
 
 func move(var velocity : Vector2) -> Vector2:
 	
-	var hook_v = (hook_point - pawn.global_position).normalized()
+	var hook_v = (hook_point - global_position).normalized()
 	
 	if hook_v.cross(velocity) > 0:
 		direction = hook_v.rotated(PI/2)

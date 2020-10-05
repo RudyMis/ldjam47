@@ -91,6 +91,11 @@ func restart():
 		player.name = "player"
 		player.position = current_scene_instance.get_restart_point()
 
+func get_map() -> TileMap:
+	if current_scene_instance:
+		return current_scene_instance.get_node("TileMap")
+	return null
+
 func move_player():
 	if player:
 		$PlayerTween.interpolate_property(player, "position", player.position, next_scene_instance.get_restart_point(), 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
