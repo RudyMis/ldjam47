@@ -5,11 +5,10 @@ signal Unhook
 
 export (float) var hook_length = 200
 export (Vector2) var gravity = Vector2(0, 10)
-export (NodePath) var debug_path
 export (float) var acceleration = 1
 export (float) var max_speed = 200
 export (float) var force = 200
-export (Vector2) var force_direction
+export (Vector2) var force_dir = Vector2(1, 1)
 
 onready var ray = $RayCast2D
 
@@ -19,8 +18,6 @@ enum Hook {
 }
 
 onready var pawn = get_parent()
-
-var input_axis = 0
 
 var b_active = false
 
@@ -38,12 +35,6 @@ func _input(_event):
 	
 	if !b_active:
 		return
-	
-	input_axis = 0
-	if Input.is_action_pressed("right"):
-		input_axis += 1
-	if Input.is_action_pressed("left"):
-		input_axis -= 1
 	
 	if Input.is_action_just_pressed("hook"):
 		hook(ray_cast())
@@ -79,8 +70,6 @@ func hook(var point : Vector2):
 	if point == Vector2.INF:
 		return
 	
-	print("Palam")
-	
 	hook_state = Hook.HOOK
 	hook_point = point
 	
@@ -93,17 +82,16 @@ func hook(var point : Vector2):
 func unhook():
 	if hook_state != Hook.HOOK:
 		return
-		
-	print("Padam")
-		
+	
 	hook_state = Hook.IDLE
-		
-	emit_signal("Unhook", force * direction * force_direction)
+	
+	print(force_dir)
+	
+	emit_signal("Unhook", direction * force_dir * force)
 
 func move(var velocity : Vector2) -> Vector2:
-	var pos = pawn.global_position
 	
-	var hook_v = (hook_point - pos).normalized()
+	var hook_v = (hook_point - pawn.global_position).normalized()
 	
 	if hook_v.cross(velocity) > 0:
 		direction = hook_v.rotated(PI/2)
@@ -111,7 +99,7 @@ func move(var velocity : Vector2) -> Vector2:
 		direction = hook_v.rotated(-PI/2)
 	
 	if pawn.global_position.distance_to(hook_point) > start_distance:
-		pawn.global_position = pawn.position.move_toward(hook_point, pawn.global_position.distance_to(hook_point) - start_distance)
+		pawn.global_position = pawn.global_position.move_toward(hook_point, pawn.global_position.distance_to(hook_point) - start_distance)
 	
 	return direction * (clamp(direction.dot(velocity) + direction.dot(gravity), -max_speed, max_speed))
 

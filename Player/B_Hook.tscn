@@ -10,7 +10,8 @@
 script = ExtResource( 1 )
 hook_length = 50.0
 acceleration = 5.0
-force_direction = Vector2( 1, 0.5 )
+force = 150.0
+force_dir = Vector2( 1, 0.5 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true

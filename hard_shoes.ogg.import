@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/hard_shoes.ogg-f7a3d84ee629b61788c6c31fda237268.oggstr"
+path="res://.import/hard_shoes.ogg-1e787f0a1e0b31e8816839df1b2f6a50.oggstr"
 
 [deps]
 
-source_file="res://Player/hard_shoes.ogg"
-dest_files=[ "res://.import/hard_shoes.ogg-f7a3d84ee629b61788c6c31fda237268.oggstr" ]
+source_file="res://hard_shoes.ogg"
+dest_files=[ "res://.import/hard_shoes.ogg-1e787f0a1e0b31e8816839df1b2f6a50.oggstr" ]
 
 [params]
 

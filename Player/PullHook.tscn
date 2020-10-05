@@ -5,6 +5,5 @@
 
 [node name="Hook" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-max_speed = 200.0
 force = 200.0
-force_direction = Vector2( 0.5, 1 )
+force_dir = Vector2( 0.3, 1 )

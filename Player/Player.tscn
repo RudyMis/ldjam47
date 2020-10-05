@@ -33,14 +33,19 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 18 ), ExtResource( 17 ) ],
 "loop": false,
-"name": "hook",
-"speed": 5.0
+"name": "land",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 20 ), ExtResource( 9 ) ],
 "loop": false,
 "name": "jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "run",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 21 ), ExtResource( 19 ) ],
@@ -48,18 +53,15 @@ animations = [ {
 "name": "fall",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 17 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": false,
-"name": "land",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
+"name": "hook",
+"speed": 5.0
 } ]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -80,10 +82,9 @@ sprite_path = NodePath("../../Player/Sprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]
-force_direction = Vector2( 0, 0 )
 
 [node name="Hook" parent="." instance=ExtResource( 3 )]
+force_dir = Vector2( 0.8, 0.5 )

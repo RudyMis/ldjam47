@@ -9,18 +9,28 @@ enum Direction {
 
 export (Vector2) var move = Vector2(240, 144)
 export (String) var first_level = "res://Levels/Level1.tscn"
- 
+
 var current_scene = null
 var next_scene
 var current_scene_instance
 var next_scene_instance
 
+var player = null
+export (PackedScene) var Player
+
+var open_door : Array
+
 onready var tween = $Tween
 
 func _ready():
 	Events.connect("LoadScene", self, "on_ChangeScene")
-	Events.emit_signal("LoadScene", first_level, Direction.UP, 1)
+	Events.emit_signal("LoadScene", first_level, Direction.UP, 0)
+	Events.connect("DoorOpen", self, "on_DoorOpen")
+
+func _input(event):
 	
+	if Input.is_action_just_pressed("restart"):
+		restart()
 
 func on_ChangeScene(scene, direction, spawn_number):
 	
@@ -46,16 +56,45 @@ func on_ChangeScene(scene, direction, spawn_number):
 				next_scene_instance.position = current_scene_instance.position + Vector2(move.x, 0)
 			Direction.LEFT:
 				next_scene_instance.position = current_scene_instance.position + Vector2(-move.x, 0)
-				
+		
+		move_player()
 		yield(move_camera(), "completed")
-	
+		
 		current_scene_instance.free()
 	else:
 		$Camera2D.position = next_scene_instance.get_camera_position()
 	
 	current_scene_instance = next_scene_instance
+	current_scene = scene
 	
-	current_scene_instance.restart()
+	if !player:
+		restart()
+	
+	
+	if open_door.has(current_scene):
+		get_tree().call_group("Door", "open")
+
+func on_DoorOpen():
+	
+	open_door.push_back(current_scene)
+
+func restart():
+	get_tree().call_group("Player", "die")
+	
+	if player:
+		yield(player, "dead")
+	
+	if Player:
+		player = Player.instance()
+		
+		add_child(player)
+		player.name = "player"
+		player.position = current_scene_instance.get_restart_point()
+
+func move_player():
+	if player:
+		$PlayerTween.interpolate_property(player, "position", player.position, next_scene_instance.get_restart_point(), 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		$PlayerTween.start()
 
 func move_camera():
 #	yield(get_tree(), "idle_frame")

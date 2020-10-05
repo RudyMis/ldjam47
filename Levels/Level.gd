@@ -16,28 +16,14 @@ func _ready():
 	
 	get_tree().call_group("Exit", "enable")
 
-func _input(event):
-	
-	if Input.is_action_just_pressed("restart"):
-		restart()
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-func restart():
+
+func get_restart_point():
 	
-	
-	if player:
-		player.call_deferred("queue_free")
-		yield(get_tree().create_timer(0.5), "timeout")
-	
-	if Player:
-		player = Player.instance()
-		
-		add_child(player)
-		player.position = get_node(restart_points[from]).position
-		
+	return get_node(restart_points[from]).global_position
 
 func get_camera_position():
 	return $CameraPosition.global_position

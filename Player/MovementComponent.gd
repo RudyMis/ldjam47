@@ -37,7 +37,7 @@ var direction_changed := false
 
 var force_tween : Node
 var current_force := Vector2.ZERO
-
+var dying = false
 
 # Jumping
 var jump_tween : Node
@@ -90,6 +90,9 @@ func _input(_event):
 
 func _physics_process(_delta):
 	
+	if dying:
+		return
+	
 	if b_hook:
 		 current_velocity = hook.move(current_velocity)
 	else:
@@ -104,9 +107,12 @@ func _on_hook():
 	sprite.animation = "hook"
 	force_tween.remove_all()
 	current_force = Vector2.ZERO
+	move_state = Move.IDLE
+	jump_state = Jump.IDLE
 	b_hook = true
 
 func _on_unhook(var force):
+	print(force)
 	apply_force(force)
 	move_state = Move.IDLE
 	direction_changed = true
@@ -117,7 +123,7 @@ func apply_force(var force : Vector2):
 	
 	current_force = force
 	
-	force_tween.interpolate_property(self, "current_force", current_force, Vector2.ZERO, jump_time * 2, Tween.TRANS_QUAD, Tween.EASE_IN)
+	force_tween.interpolate_property(self, "current_force", current_force, Vector2.ZERO, jump_time * 2, Tween.TRANS_CUBIC, Tween.EASE_IN)
 	force_tween.start()
 
 func move():
@@ -147,6 +153,9 @@ func collision():
 			force_tween.remove_all()
 			current_force = Vector2.ZERO
 			
+			if !sprite:
+				return
+
 			# Ble
 			if move_state == Move.IDLE:
 				sprite.animation = "land"
@@ -237,3 +246,6 @@ func fall():
 	jump_tween.start()
 	
 	yield(jump_tween, "tween_completed")
+
+func is_hooked():
+	return b_hook
