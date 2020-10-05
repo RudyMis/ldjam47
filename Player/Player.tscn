@@ -84,6 +84,7 @@ sprite_path = NodePath("../../Player/Sprite")
 position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]

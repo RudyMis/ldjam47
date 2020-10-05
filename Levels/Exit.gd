@@ -15,7 +15,6 @@ func _ready():
 	pass
 
 func enable():
-	print("Plum")
 	monitoring = true
 
 func _on_Exit(body):

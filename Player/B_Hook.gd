@@ -85,8 +85,6 @@ func unhook():
 	
 	hook_state = Hook.IDLE
 	
-	print(force_dir)
-	
 	emit_signal("Unhook", direction * force_dir * force)
 
 func move(var velocity : Vector2) -> Vector2:

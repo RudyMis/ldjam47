@@ -23,11 +23,13 @@ next = "res://Levels/Level2.tscn"
 position = Vector2( 78.4301, -12.2842 )
 
 [node name="light_front" parent="." index="5" instance=ExtResource( 4 )]
+modulate = Color( 0.396078, 0.396078, 0.396078, 1 )
 position = Vector2( 235.722, 91.0065 )
-frame = 6
 
-[node name="light_back" parent="light_front" index="0" instance=ExtResource( 5 )]
-position = Vector2( -41.8474, -0.256531 )
+[node name="light_back" parent="." index="6" instance=ExtResource( 5 )]
+modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
+position = Vector2( 193.875, 90.75 )
 
-[node name="sign2" parent="light_front/light_back" index="0" instance=ExtResource( 3 )]
-position = Vector2( 58.875, 0.25 )
+[node name="sign2" parent="." index="7" instance=ExtResource( 3 )]
+modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
+position = Vector2( 252.75, 91 )

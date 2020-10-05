@@ -1,8 +1,12 @@
 extends Area2D
 
+var used = false
+
 func _ready():
 	pass
 
 
 func _on_HookChange_body_entered(body):
-	Events.emit_signal("ChangeHook")
+	if !used:
+		Events.emit_signal("ChangeHook")
+		used = true

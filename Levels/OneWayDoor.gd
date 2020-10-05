@@ -12,6 +12,5 @@ func open():
 func _on_Area2D_body_entered(body):
 	print(body)
 	if "movement" in body:
-		if body.movement.is_hooked():
-			Events.emit_signal("DoorOpen")
-			open()
+		Events.emit_signal("DoorOpen")
+		open()
