@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idle1.png-2c7b26754f03883d7b64054fd6d0ad36.stex"
+path="res://.import/skok3.png-352675ee80a2ea6328eb6d92ae9e6e2f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/idle1.png"
-dest_files=[ "res://.import/idle1.png-2c7b26754f03883d7b64054fd6d0ad36.stex" ]
+source_file="res://Assets/Player/Jump/skok3.png"
+dest_files=[ "res://.import/skok3.png-352675ee80a2ea6328eb6d92ae9e6e2f.stex" ]
 
 [params]
 

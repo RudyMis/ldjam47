@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/run6.png-453bc328b1920959a4dcd72380bf30f5.stex"
+path="res://.import/piasek.png-0ccf8a3119360f8be0d9dc3b74dcca19.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/run6.png"
-dest_files=[ "res://.import/run6.png-453bc328b1920959a4dcd72380bf30f5.stex" ]
+source_file="res://Assets/piasek.png"
+dest_files=[ "res://.import/piasek.png-0ccf8a3119360f8be0d9dc3b74dcca19.stex" ]
 
 [params]
 

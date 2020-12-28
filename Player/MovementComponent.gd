@@ -4,6 +4,15 @@ class_name MovementComponent
 func is_class(name : String): return "MovementComponent" == name || .is_class(name)
 func get_class(): return "MovementComponent"
 
+signal idle
+signal move
+signal jump
+signal fall
+signal land_straight
+signal land_direction
+signal ceiling
+signal wall
+
 enum Move {
 	IDLE,
 	STOP,
@@ -13,9 +22,9 @@ enum Move {
 }
 
 enum Jump {
-	IDLE,
-	JUMP,
-	FALL
+	IDLE = 5,
+	JUMP = 6,
+	FALL = 7
 }
 
 export (float) var move_velocity
@@ -25,55 +34,37 @@ export (float) var jump_height
 export (float) var jump_time
 export (float) var force_time
 
-export (NodePath) var hook_path
-export (NodePath) var other_hook_path
-export (NodePath) var sprite_path
-
 # Movement
 var current_velocity : Vector2
 var input_axis : Vector2
-var move_tween : Node
+onready var move_tween = $move
 var move_state = Move.IDLE
 var direction_changed := false
 
-var force_tween : Node
+onready var force_tween = $force
 var current_force := Vector2.ZERO
 var dying = false
 
 # Jumping
-var jump_tween : Node
+onready var jump_tween = $jump
 var jump_state = Jump.IDLE
 var do_jump = false
 
-var b_hook = false
-onready var hook = get_node(hook_path)
-onready var other_hook = get_node(other_hook_path)
-
 # Postać kontrolowana przez ten węzeł
 onready var pawn = get_parent()
-onready var sprite = get_node(sprite_path)
-
-
 
 func _ready():
-	# Creates tween for smooth movement
-	move_tween = Tween.new()
-	add_child(move_tween)
-	
-	jump_tween = Tween.new()
-	add_child(jump_tween)
-	
-	force_tween = Tween.new()
-	add_child(force_tween)
-	
-	hook.b_active = true
 	
 	# Checks if parent is moveable or not
 	if !pawn.is_class("KinematicBody2D"):
 		print("Parent is not moveable")
 		set_physics_process(false)
 
+# Żeby można było zmieniać
 func _input(_event):
+	input()
+
+func input():
 	var last = input_axis
 	input_axis = Vector2(0, 0)
 	if Input.is_action_pressed("right"):
@@ -89,49 +80,102 @@ func _input(_event):
 
 func _physics_process(_delta):
 	
-	if dying:
-		return
-	
-	if b_hook:
-		 current_velocity = hook.move(current_velocity)
-	else:
-		move()
+	move()
 	
 	pawn.move_and_slide(current_velocity + current_force, Vector2(0, -1))
 	
-	if !b_hook:
-		collision()
+	update_collision()
 
 func _on_hook():
-	sprite.animation = "hook"
 	force_tween.remove_all()
 	current_force = Vector2.ZERO
 	move_state = Move.IDLE
 	jump_state = Jump.IDLE
-	b_hook = true
 
 func _on_unhook(var force):
 	apply_force(force)
 	move_state = Move.IDLE
 	direction_changed = true
 	jump_state = Jump.IDLE
-	b_hook = false
+
+# Emits signals with state info
+func change_state(new_state):
+	match new_state:
+		Jump.JUMP:
+			jump_state = Jump.JUMP
+			emit_signal("jump")
+		Jump.FALL:
+			jump_state = Jump.FALL
+			emit_signal("fall")
+		Jump.IDLE:
+			jump_state = Jump.IDLE
+			if move_state == Move.IDLE or move_state == Move.STOP:
+				emit_signal("land_straight")
+			else:
+				emit_signal("land_direction", input_axis.x)
+	
+	match new_state:
+		Move.IDLE:
+			move_state = Move.IDLE
+			emit_signal("idle")
+		Move.START_LEFT: 
+			move_state = Move.START_LEFT
+			emit_signal("move", input_axis.x)
+		Move.START_RIGHT: 
+			move_state = Move.START_RIGHT
+			emit_signal("move", input_axis.x)
+		Move.STOP:
+			move_state = Move.STOP
+		Move.MOVE:
+			move_state = Move.MOVE
+		_: continue
+		
+
+func update_collision():
+
+	if pawn.is_on_floor():
+		if jump_state != Jump.IDLE:
+			change_state(Jump.IDLE)
+			
+			current_velocity.y = 5
+			
+			force_tween.remove_all()
+			current_force = Vector2.ZERO
+			
+
+	elif jump_state == Jump.IDLE:
+		fall()
+	
+	if pawn.is_on_wall():
+		force_tween.remove_all()
+		current_force = Vector2.ZERO
+	
+	if pawn.is_on_ceiling():
+		current_velocity.y = 0
+		fall()
 
 func apply_force(var force : Vector2, time = jump_time * 2):
 	
 	current_force = force
 	
-	force_tween.interpolate_property(self, "current_force", current_force, Vector2.ZERO, time, Tween.TRANS_CUBIC, Tween.EASE_IN)
+	force_tween.interpolate_property (
+		self,
+		"current_force",
+		current_force, 
+		Vector2.ZERO,
+		time, 
+		Tween.TRANS_CUBIC,
+		Tween.EASE_IN )
 	force_tween.start()
 
 func move():
+	
 	# Jumping
-	if do_jump:
+	if do_jump: 
 		if jump_state == Jump.IDLE:
 			jump()
-	else:
-		if jump_state == Jump.JUMP:
-			fall()
+	elif jump_state == Jump.JUMP:
+		fall()
 	
 	# Movement
 	if direction_changed:
@@ -141,122 +185,91 @@ func move():
 		else:
 			start(input_axis.x)
 
-func collision():
-	
-	if pawn.is_on_floor():
-		if jump_state != Jump.IDLE:
-			jump_state = Jump.IDLE
-			current_velocity.y = 5
-			
-			force_tween.remove_all()
-			current_force = Vector2.ZERO
-			
-			if !sprite:
-				return
-
-			# Ble
-			if move_state == Move.IDLE:
-				sprite.animation = "land"
-				yield(sprite, "animation_finished")
-				if sprite.animation == "land":
-					sprite.animation = "idle"
-			elif move_state == Move.MOVE:
-				sprite.animation = "run"
-				
-	
-	#elif pawn.is_on_wall():
-	#	jump_state = Jump.IDLE
-	
-	elif jump_state == Jump.IDLE:
-		fall()
-	
-	if pawn.is_on_wall():
-		var time = force_tween.get_runtime()
-		force_tween.remove_all()
-		apply_force(Vector2(0, current_force.y), time) 
-
 # Starts moving
 func start(direction : float):
 	
-	sprite.animation = "run"
-	var state
 	if direction == 1:
-		sprite.flip_h = false
-		state = Move.START_RIGHT
+		change_state(Move.START_RIGHT)
 	else:
-		sprite.flip_h = true
-		state = Move.START_LEFT
+		change_state(Move.START_LEFT)
 	
-	move_state = state
+	var prev_state = move_state
 	
-	move_tween.remove(self, "current_velocity:x")
-	move_tween.interpolate_property(self, "current_velocity:x", current_velocity.x, move_velocity * direction, acceleration_time, Tween.TRANS_CIRC, Tween.EASE_OUT)
+	move_tween.remove_all()
+	move_tween.interpolate_property (
+		self,
+		"current_velocity:x",
+		current_velocity.x,
+		move_velocity * direction,
+		acceleration_time,
+		Tween.TRANS_CIRC,
+		Tween.EASE_OUT )
 	move_tween.start()
 	
 	yield(move_tween, "tween_completed")
 	
-	
-	if move_state == state:
-		move_state = Move.MOVE
+	if move_state == prev_state:
+		change_state(Move.MOVE)
 
 # Stops character
 func stop():
 	
-	move_state = Move.STOP
+	change_state(Move.STOP)
 	
-	move_tween.remove(self, "current_velocity:x")
-	move_tween.interpolate_property(self, "current_velocity:x", current_velocity.x, 0, deceleration_time, Tween.TRANS_CIRC, Tween.EASE_IN)
+	move_tween.remove_all()
+	move_tween.interpolate_property (
+		self,
+		"current_velocity:x",
+		current_velocity.x,
+		0,
+		deceleration_time,
+		Tween.TRANS_CIRC,
+		Tween.EASE_IN )
 	move_tween.start()
 	
 	yield(move_tween, "tween_completed")
 	
 	if move_state == Move.STOP:
-		move_state = Move.IDLE
-		sprite.animation = "idle"
+		change_state(Move.IDLE)
 
 # Start of the jump
 func jump():
 	
-	jump_state = Jump.JUMP
-	sprite.animation = "jump"
+	change_state(Jump.JUMP)
 	
 	# Upward in godot is negative
 	var initial_velocity = -2.0 * jump_height / jump_time
 	
-	jump_tween.remove(self, "current_velocity:y")
-	jump_tween.interpolate_property(self, "current_velocity:y", initial_velocity, 0, jump_time, Tween.TRANS_LINEAR)
+	jump_tween.remove_all()
+	jump_tween.interpolate_property (
+		self,
+		"current_velocity:y",
+		initial_velocity,
+		0,
+		jump_time,
+		Tween.TRANS_LINEAR )
 	jump_tween.start()
 	
 	yield(jump_tween, "tween_completed")
 	
 	if jump_state == Jump.JUMP:
+		do_jump = false
 		fall()
 
 func fall():
 	
-	jump_state = Jump.FALL
-	sprite.animation = "fall"
-	do_jump = false
+	change_state(Jump.FALL)
 	
 	var fall_velocity = 2.0 * jump_height / jump_time
 	
-	jump_tween.remove(self, "current_velocity:y")
-	jump_tween.interpolate_property(self, "current_velocity:y", current_velocity.y / 2, fall_velocity, jump_time * 3 / 4, Tween.TRANS_LINEAR)
+	jump_tween.remove_all()
+	jump_tween.interpolate_property (
+		self,
+		"current_velocity:y",
+		current_velocity.y / 2,
+		fall_velocity,
+		jump_time,
+		Tween.TRANS_LINEAR )
 	jump_tween.start()
 	
 	yield(jump_tween, "tween_completed")
-
-func is_hooked():
-	return b_hook
-
-func change_hook():
-	if b_hook:
-		yield(hook, "Unhook")
-	
-	hook.b_active = false
-	
-	var pom = hook
-	hook = other_hook
-	other_hook = pom
-	
-	hook.b_active = true
