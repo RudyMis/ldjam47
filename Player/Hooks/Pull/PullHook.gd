@@ -1,4 +1,4 @@
-extends "res://Player/B_Hook.gd"
+extends "res://Player/Hooks/Base/B_Hook.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

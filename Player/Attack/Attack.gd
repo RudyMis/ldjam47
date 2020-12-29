@@ -1,6 +1,5 @@
 extends Area2D
 
-
 export (int) var number_of_attacks = 2
 export (Array, float) var cooldown = [0.2, 0.4]
 export (Array, float) var damage = [50.0, 60.0]
@@ -35,7 +34,7 @@ func _on_hit(body):
 	print("Bam!")
 	print(body.get_class())
 	if body.is_class("Enemy"):
-		body.apply_damage(damage[combo] * Vector2(pawn.direction(), 1), recoil[combo])
+		body.apply_damage(damage[combo], recoil[combo] * Vector2(pawn.direction(), 1))
 		inc_combo()
 
 func inc_combo():

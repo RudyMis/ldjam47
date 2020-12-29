@@ -17,7 +17,7 @@
 [ext_resource path="res://Assets/Player/Jump/skok3.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Player/Jump/skok1.png" type="Texture" id=16]
 [ext_resource path="res://Assets/MovementAnimation.tres" type="AnimationNodeStateMachinePlayback" id=17]
-[ext_resource path="res://Player/Animation.gd" type="Script" id=18]
+[ext_resource path="res://Player/Animation/Animation.gd" type="Script" id=18]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fall"
@@ -178,7 +178,7 @@ start_node = "Idle"
 graph_offset = Vector2( 0, -6.20587 )
 
 [node name="Animation" type="Sprite"]
-texture = ExtResource( 6 )
+texture = ExtResource( 3 )
 script = ExtResource( 18 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

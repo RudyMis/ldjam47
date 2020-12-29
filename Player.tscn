@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/MovementComponent.gd" type="Script" id=2]
-[ext_resource path="res://Player/B_Hook.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player/Movement/MovementComponent.gd" type="Script" id=2]
+[ext_resource path="res://Player/Hooks/Base/B_Hook.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Player/Idle/idle1.png" type="Texture" id=4]
 [ext_resource path="res://Assets/hook.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Player/Run/run1.png" type="Texture" id=6]
@@ -21,7 +21,7 @@
 [ext_resource path="res://Assets/Player/Jump/skok4.png" type="Texture" id=19]
 [ext_resource path="res://Assets/Player/Jump/skok1.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Player/Jump/skok3.png" type="Texture" id=21]
-[ext_resource path="res://Player/PullHook.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Player/Hooks/Pull/PullHook.tscn" type="PackedScene" id=22]
 [ext_resource path="res://background.ogg" type="AudioStream" id=23]
 [ext_resource path="res://hop.ogg" type="AudioStream" id=24]
 [ext_resource path="res://hop.gd" type="Script" id=25]
@@ -29,6 +29,12 @@
 [ext_resource path="res://rzut.gd" type="Script" id=27]
 [ext_resource path="res://ide.gd" type="Script" id=28]
 [ext_resource path="res://hard_shoes.ogg" type="AudioStream" id=29]
+
+
+
+
+
+
 
 
 

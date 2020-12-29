@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player/Movement/MovementController.gd" type="Script" id=1]
+[ext_resource path="res://Player/Movement/Walk/Walk.tscn" type="PackedScene" id=2]
+
+[node name="MovementController" type="Node"]
+script = ExtResource( 1 )
+nodes = [ NodePath("Walk") ]
+default = NodePath("Walk")
+
+[node name="Walk" parent="." instance=ExtResource( 2 )]

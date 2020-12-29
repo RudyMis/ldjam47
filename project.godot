@@ -9,24 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Sprite",
+"class": "AnimationComponent",
+"language": "GDScript",
+"path": "res://Player/Animation/Animation.gd"
+}, {
 "base": "RigidBody2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Enemy/Enemy.gd"
 }, {
-"base": "Sprite",
-"class": "AnimationComponent",
-"language": "GDScript",
-"path": "res://Player/Animation.gd"
-}, {
 "base": "Node",
 "class": "MovementComponent",
 "language": "GDScript",
-"path": "res://Player/MovementComponent.gd"
+"path": "res://Player/Movement/MovementComponent.gd"
 } ]
 _global_script_class_icons={
-"Enemy": "",
 "AnimationComponent": "",
+"Enemy": "",
 "MovementComponent": ""
 }
 

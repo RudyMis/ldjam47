@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Player/B_Hook.gd" type="Script" id=1]
+[ext_resource path="res://Player/Hooks/Base/B_Hook.gd" type="Script" id=1]
 [ext_resource path="res://Assets/rope.png" type="Texture" id=2]
 [ext_resource path="res://Assets/przyssawka.png" type="Texture" id=3]
 
