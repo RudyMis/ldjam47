@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/run3.png-e6aa6ac8d2fc554bc15b0541a48221a8.stex"
+path="res://.import/skok4.png-3b1821e2eec4a6f5c4a57f824d358b21.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/run3.png"
-dest_files=[ "res://.import/run3.png-e6aa6ac8d2fc554bc15b0541a48221a8.stex" ]
+source_file="res://Assets/Player/Jump/skok4.png"
+dest_files=[ "res://.import/skok4.png-3b1821e2eec4a6f5c4a57f824d358b21.stex" ]
 
 [params]
 

@@ -1,26 +1,9 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/MovementComponent.gd" type="Script" id=2]
+[ext_resource path="res://Player/Movement.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/B_Hook.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/idle1.png" type="Texture" id=4]
-[ext_resource path="res://Assets/hook.png" type="Texture" id=5]
-[ext_resource path="res://Assets/run1.png" type="Texture" id=6]
-[ext_resource path="res://Assets/run2.png" type="Texture" id=7]
-[ext_resource path="res://Assets/run8.png" type="Texture" id=8]
-[ext_resource path="res://Assets/skok2.png" type="Texture" id=9]
-[ext_resource path="res://Assets/run7.png" type="Texture" id=10]
-[ext_resource path="res://Assets/run5.png" type="Texture" id=11]
-[ext_resource path="res://Assets/run4.png" type="Texture" id=12]
-[ext_resource path="res://Assets/idle2.png" type="Texture" id=13]
-[ext_resource path="res://Assets/run6.png" type="Texture" id=14]
-[ext_resource path="res://Assets/idle3.png" type="Texture" id=15]
-[ext_resource path="res://Assets/run3.png" type="Texture" id=16]
-[ext_resource path="res://Assets/skok6.png" type="Texture" id=17]
-[ext_resource path="res://Assets/skok5.png" type="Texture" id=18]
-[ext_resource path="res://Assets/skok4.png" type="Texture" id=19]
-[ext_resource path="res://Assets/skok1.png" type="Texture" id=20]
-[ext_resource path="res://Assets/skok3.png" type="Texture" id=21]
+[ext_resource path="res://Player/Animation.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player/PullHook.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Player/Attack.tscn" type="PackedScene" id=23]
 [ext_resource path="res://ide.gd" type="Script" id=24]
@@ -31,39 +14,6 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 7 )
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 13 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 9 ) ],
-"loop": false,
-"name": "jump",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
-"name": "hook",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 18 ), ExtResource( 17 ) ],
-"loop": false,
-"name": "land",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 21 ), ExtResource( 19 ) ],
-"loop": false,
-"name": "fall",
-"speed": 10.0
-} ]
-
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
@@ -73,25 +23,6 @@ script = ExtResource( 1 )
 position = Vector2( 0, -7 )
 shape = SubResource( 1 )
 
-[node name="MovementComponent" type="Node" parent="."]
-script = ExtResource( 2 )
-move_velocity = 100.0
-acceleration_time = 0.3
-deceleration_time = 0.15
-jump_height = 32.0
-jump_time = 0.3
-force_time = 0.5
-hook_path = NodePath("../Hook")
-other_hook_path = NodePath("../Pull")
-sprite_path = NodePath("../../Player/Sprite")
-
-[node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -8 )
-frames = SubResource( 2 )
-animation = "idle"
-frame = 1
-playing = true
-
 [node name="Pull" parent="." instance=ExtResource( 22 )]
 position = Vector2( 2.5, -11.5 )
 force = 250.0
@@ -100,6 +31,9 @@ force_dir = Vector2( 0.5, 1 )
 [node name="Hook" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2.5, -11.5 )
 force_dir = Vector2( 0.8, 0.5 )
+
+[node name="Sprite" parent="." instance=ExtResource( 4 )]
+offset = Vector2( 0, -8 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -133,12 +67,9 @@ stream = ExtResource( 27 )
 volume_db = -5.0
 script = ExtResource( 24 )
 
-[node name="Attack" parent="." instance=ExtResource( 23 )]
-position = Vector2( 9.93294, -7.79565 )
-gravity_vec = Vector2( 0, 0 )
-gravity = 0.0
-p_pawn = NodePath("..")
-[connection signal="Hook" from="Pull" to="MovementComponent" method="_on_hook"]
-[connection signal="Unhook" from="Pull" to="MovementComponent" method="_on_unhook"]
-[connection signal="Hook" from="Hook" to="MovementComponent" method="_on_hook"]
-[connection signal="Unhook" from="Hook" to="MovementComponent" method="_on_unhook"]
+[node name="Movement" parent="." instance=ExtResource( 2 )]
+move_velocity = 75.0
+acceleration_time = 0.3
+deceleration_time = 0.15
+jump_height = 24.0
+jump_time = 0.25
