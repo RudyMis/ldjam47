@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 signal idle
 signal move
@@ -12,8 +12,7 @@ signal wall
 export (Array, NodePath) var nodes = []
 export (NodePath) var default
 
-export (Array) var switches = [
-]
+export (Array) var switches = []
 
 var p_current_node
 
@@ -28,6 +27,11 @@ onready var pawn = get_parent()
 func _ready():
 	if !is_parent_kinematic():
 		return
+	
+	switches = [
+		[nodes[0], "to_hook", nodes[1]],
+		[nodes[1], "to_walk", nodes[0]]
+	]
 	
 	for p_node in nodes:
 		turn_node(p_node, false)
@@ -44,6 +48,12 @@ func _process(delta):
 	var switch = check_for_movement_change()
 	if switch != null:
 		change_movement_type(switch[0], switch[2])
+
+func _input(_event):
+	if Input.is_action_just_pressed("hook"):
+		to_hook = true
+	if Input.is_action_just_released("hook"):
+		to_walk = true
 
 func _physics_process(delta):
 	
@@ -66,6 +76,7 @@ func is_parent_kinematic():
 func check_for_movement_change():
 	for switch in switches:
 		if switch[0] == p_current_node and get(switch[1]):
+			set(switch[1], false)
 			return switch
 	return null
 

@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Enemy/Enemy.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "MovementComponent",
 "language": "GDScript",
 "path": "res://Player/Movement/MovementComponent.gd"

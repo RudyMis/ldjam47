@@ -16,6 +16,7 @@ func leave():
 	pass
 
 # Movement logic goes here
+# Change current_velocity and current_force; don't move the pawn itself
 func move():
 	pass
 

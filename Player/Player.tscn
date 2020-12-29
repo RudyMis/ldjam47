@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Movement/MovementController.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Player/Hooks/Base/B_Hook.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/Animation/Animation.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player/Flip.gd" type="Script" id=5]
-[ext_resource path="res://Player/Hooks/Pull/PullHook.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Assets/Player/Idle/idle1.png" type="Texture" id=6]
 [ext_resource path="res://Player/Attack/Attack.tscn" type="PackedScene" id=23]
 [ext_resource path="res://ide.gd" type="Script" id=24]
 [ext_resource path="res://rzut.gd" type="Script" id=25]
@@ -19,21 +18,16 @@ extents = Vector2( 3, 7 )
 "Player",
 ]]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -7 )
 shape = SubResource( 1 )
 
-[node name="Pull" parent="." instance=ExtResource( 22 )]
-position = Vector2( 2.5, -11.5 )
-force = 250.0
-force_dir = Vector2( 0.5, 1 )
-
-[node name="Hook" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2.5, -11.5 )
-force_dir = Vector2( 0.8, 0.5 )
-
 [node name="Animation" parent="." instance=ExtResource( 4 )]
+texture = ExtResource( 6 )
 offset = Vector2( 0, -8 )
 movement = NodePath("../MovementController")
 
@@ -77,3 +71,4 @@ position = Vector2( 9.79666, -7.17965 )
 p_pawn = NodePath("..")
 
 [node name="MovementController" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2.51623, -11.5217 )
