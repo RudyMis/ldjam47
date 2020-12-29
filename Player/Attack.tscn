@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player/Attack.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.66496, 6.46136 )
+
+[node name="Attack" type="Area2D"]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 6
+script = ExtResource( 1 )
+recoil = [ Vector2( 20, -100 ), Vector2( 40, -50 ) ]
+scan_time = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_hit"]

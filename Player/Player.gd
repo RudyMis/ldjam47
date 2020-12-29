@@ -34,8 +34,12 @@ func _process(delta):
 			if cell == 6:
 				mark_dead()
 				return
-		
-		
+
+# Workaround narazie
+func direction():
+	if $Sprite.flip_h: return -1
+	else: return 1
+	
 
 func mark_dead():
 	get_parent().restart()

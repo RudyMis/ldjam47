@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/MovementComponent.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://Assets/skok1.png" type="Texture" id=20]
 [ext_resource path="res://Assets/skok3.png" type="Texture" id=21]
 [ext_resource path="res://Player/PullHook.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Player/Attack.tscn" type="PackedScene" id=23]
 [ext_resource path="res://ide.gd" type="Script" id=24]
 [ext_resource path="res://rzut.gd" type="Script" id=25]
 [ext_resource path="res://hard_shoes.ogg" type="AudioStream" id=27]
@@ -37,9 +38,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 17 ) ],
+"frames": [ ExtResource( 20 ), ExtResource( 9 ) ],
 "loop": false,
-"name": "land",
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "run",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 5 ) ],
@@ -47,19 +53,14 @@ animations = [ {
 "name": "hook",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 20 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 18 ), ExtResource( 17 ) ],
 "loop": false,
-"name": "jump",
+"name": "land",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 21 ), ExtResource( 19 ) ],
 "loop": false,
 "name": "fall",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "run",
 "speed": 10.0
 } ]
 
@@ -88,7 +89,7 @@ sprite_path = NodePath("../../Player/Sprite")
 position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Pull" parent="." instance=ExtResource( 22 )]
@@ -131,6 +132,12 @@ script = ExtResource( 25 )
 stream = ExtResource( 27 )
 volume_db = -5.0
 script = ExtResource( 24 )
+
+[node name="Attack" parent="." instance=ExtResource( 23 )]
+position = Vector2( 9.93294, -7.79565 )
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+p_pawn = NodePath("..")
 [connection signal="Hook" from="Pull" to="MovementComponent" method="_on_hook"]
 [connection signal="Unhook" from="Pull" to="MovementComponent" method="_on_unhook"]
 [connection signal="Hook" from="Hook" to="MovementComponent" method="_on_hook"]
