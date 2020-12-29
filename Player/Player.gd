@@ -33,6 +33,12 @@ func death_check():
 				mark_dead()
 				return
 
+# Workaround narazie
+func direction():
+	if $Sprite.flip_h: return -1
+	else: return 1
+	
+
 func mark_dead():
 	hide()
 	set_process(false)

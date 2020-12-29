@@ -5,6 +5,7 @@
 [ext_resource path="res://Player/B_Hook.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/Animation.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player/PullHook.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Player/Attack.tscn" type="PackedScene" id=23]
 [ext_resource path="res://ide.gd" type="Script" id=24]
 [ext_resource path="res://rzut.gd" type="Script" id=25]
 [ext_resource path="res://hard_shoes.ogg" type="AudioStream" id=27]
