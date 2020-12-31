@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Levels/Dungeon/TurnableObject.tscn" type="PackedScene" id=1]
+
+[node name="TileMap" instance=ExtResource( 1 )]
+collision_mask = 0
+tile_data = PoolIntArray( 0, 5, 0, 1, 5, 3, 65536, 5, 131072, 65537, 5, 131075, 196604, 3, 0, 196605, 4, 0, 196606, 4, 0, 196607, 4, 0, 131072, 5, 65536, 131073, 5, 131075, 196608, 5, 65536, 196609, 5, 131075, 327678, 3, 0, 327679, 5, 131076, 262144, 5, 327685, 262145, 5, 65539, 327680, 5, 65536, 327681, 5, 131075, 458746, 5, 131076, 458747, 5, 131077, 393216, 5, 196608, 393217, 5, 65543, 458753, 5, 262149 )
+data_name = "Second"

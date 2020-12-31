@@ -31,10 +31,9 @@ func _process(delta):
 		do_attack = false
 
 func _on_hit(body):
-	print("Bam!")
-	print(body.get_class())
-	if body.is_class("Enemy"):
-		body.apply_damage(damage[combo], recoil[combo] * Vector2(pawn.direction(), 1))
+	print("Bam")
+	if body.is_class("Hitable"):
+		body.hit(damage[combo], recoil[combo] * Vector2(pawn.direction(), 1))
 		inc_combo()
 
 func inc_combo():
@@ -45,7 +44,6 @@ func inc_combo():
 func reset_combo(): combo = 0
 
 func chain_attack():
-	print("Attack")
 	var last_combo = combo + 1
 	attack()
 	yield(get_tree().create_timer(combo_reset_time), "timeout")
@@ -60,6 +58,7 @@ func attack():
 
 # Będzie odpalane rzadziej, niż attack, więc nie ma problemu z yieldem
 func enable_collision():
+	print("Dziang")
 	monitoring = true
 	yield(get_tree().create_timer(scan_time), "timeout")
 	monitoring = false

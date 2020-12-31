@@ -12,3 +12,4 @@ default = NodePath("Walk")
 [node name="Walk" parent="." instance=ExtResource( 2 )]
 
 [node name="Swing" parent="." instance=ExtResource( 3 )]
+hook_length = 48.0

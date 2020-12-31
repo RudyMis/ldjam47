@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Hitable
 
 class_name Enemy
 func is_class(name): return name == "Enemy" || .is_class(name)
@@ -14,7 +14,7 @@ var health = max_health
 func _ready():
 	pass
 
-func apply_damage(damage, recoil):
+func hit(damage, recoil):
 	
 	print("ała")
 	

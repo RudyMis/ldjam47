@@ -18,6 +18,9 @@ func _input(_event):
 func input():
 	pass
 
+func check():
+	return true
+
 func enter(var vel, var force, var p):
 	pass
 

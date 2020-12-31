@@ -38,10 +38,10 @@ func _ready():
 	turn_node(default, true)
 	p_current_node = default
 	
-	setup_movement_component(
-		get_node(p_current_node),
+	get_node(p_current_node).enter(
 		Vector2(0, 0), 
-		Vector2(0, 0)
+		Vector2(0, 0),
+		pawn
 	)
 
 func _process(delta):
@@ -52,7 +52,7 @@ func _process(delta):
 func _input(_event):
 	if Input.is_action_just_pressed("hook"):
 		to_hook = true
-	if Input.is_action_just_released("hook"):
+	if Input.is_action_just_released("hook") && p_current_node != default:
 		to_walk = true
 
 func _physics_process(delta):
@@ -80,22 +80,16 @@ func check_for_movement_change():
 			return switch
 	return null
 
-func setup_movement_component(
-	var node : MovementComponent,
-	var vel : Vector2,
-	var force : Vector2
-):
-	node.enter(vel, force, pawn)
-
 func change_movement_type(var from : NodePath, var to : NodePath):
 	turn_node(from, false)
 	turn_node(to, true)
-	p_current_node = to
-	var prev_node = get_node(from)
-	var current_node = get_node(to)
-	if prev_node and current_node:
-		prev_node.leave()
-		setup_movement_component(current_node, prev_node.current_velocity, prev_node.current_force)
+	var prev = get_node(from)
+	var next = get_node(to)
+	if prev and next:
+		if next.check(): 
+			prev.leave()
+			next.enter(prev.current_velocity, prev.current_force, pawn)
+			p_current_node = to
 
 func turn_node(var p_node, var b_to):
 	var node = get_node(p_node)

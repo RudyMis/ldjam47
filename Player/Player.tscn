@@ -1,15 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Movement/MovementController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Animation/Animation.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Player/Flip.gd" type="Script" id=5]
-[ext_resource path="res://Assets/Player/Idle/idle1.png" type="Texture" id=6]
 [ext_resource path="res://Player/Attack/Attack.tscn" type="PackedScene" id=23]
-[ext_resource path="res://ide.gd" type="Script" id=24]
-[ext_resource path="res://rzut.gd" type="Script" id=25]
-[ext_resource path="res://hard_shoes.ogg" type="AudioStream" id=27]
-[ext_resource path="res://rzut.ogg" type="AudioStream" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 7 )
@@ -17,6 +11,7 @@ extents = Vector2( 3, 7 )
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
+collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -27,48 +22,13 @@ position = Vector2( 0, -7 )
 shape = SubResource( 1 )
 
 [node name="Animation" parent="." instance=ExtResource( 4 )]
-texture = ExtResource( 6 )
 offset = Vector2( 0, -8 )
 movement = NodePath("../MovementController")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_right = 5
-custom_constants/margin_top = 5
-custom_constants/margin_left = 5
-custom_constants/margin_bottom = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 235.0
-margin_bottom = 139.0
-custom_constants/separation = 10
-
-[node name="Rzut" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 28 )
-volume_db = -5.0
-script = ExtResource( 25 )
-
-[node name="Ide" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 27 )
-volume_db = -5.0
-script = ExtResource( 24 )
-
-[node name="Flip" type="Node2D" parent="."]
-script = ExtResource( 5 )
-
-[node name="Attack" parent="Flip" instance=ExtResource( 23 )]
-position = Vector2( 9.79666, -7.17965 )
-p_pawn = NodePath("..")
-
 [node name="MovementController" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2.51623, -11.5217 )
+
+[node name="Attack" parent="." instance=ExtResource( 23 )]
+position = Vector2( 9.79666, -7.17965 )
+gravity = 0.0
+p_pawn = NodePath("..")

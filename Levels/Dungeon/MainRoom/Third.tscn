@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Levels/Dungeon/TurnableObject.tscn" type="PackedScene" id=1]
+
+[node name="TileMap" instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 0, 5, 0, 1, 5, 1, 2, 5, 3, 65536, 5, 196608, 65537, 5, 196609, 65538, 5, 196611 )
+data_name = "Third"
+env_bit = 1

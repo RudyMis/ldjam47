@@ -7,6 +7,10 @@ func _ready():
 func input():
 	pass
 
+# Sprawdzenie, czy można aktualnie na to zmienić
+func check():
+	return true
+
 # Called when component is activated
 func enter(var vel, var force, var p):
 	pass
