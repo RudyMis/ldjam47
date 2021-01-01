@@ -8,7 +8,7 @@ enum {
 export (NodePath) var sprite
 export (String) var data_name = ""
 
-var state = OFF
+var state = ON
 
 func _ready():
 	sprite = get_node(sprite)
@@ -18,7 +18,6 @@ func _ready():
 		turn_on()
 
 func hit(_a, _b):
-	print("Bonk")
 	if state == OFF:
 		turn_on()
 	else:

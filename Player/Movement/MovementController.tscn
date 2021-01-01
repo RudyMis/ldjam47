@@ -10,6 +10,8 @@ nodes = [ NodePath("Walk"), NodePath("Swing") ]
 default = NodePath("Walk")
 
 [node name="Walk" parent="." instance=ExtResource( 2 )]
+move_velocity = 150.0
+jump_height = 48.0
 
 [node name="Swing" parent="." instance=ExtResource( 3 )]
-hook_length = 48.0
+hook_length = 96.0

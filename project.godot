@@ -50,8 +50,8 @@ Data="*res://Autoload/Data.gd"
 
 [display]
 
-window/size/width=320
-window/size/height=184
+window/size/width=640
+window/size/height=368
 window/size/resizable=false
 window/size/fullscreen=true
 window/stretch/mode="viewport"

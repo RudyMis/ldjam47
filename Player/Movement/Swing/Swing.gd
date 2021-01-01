@@ -1,6 +1,6 @@
 extends MovementComponent
 
-export (float) var hook_length = 200
+export (float) var hook_length = 40
 export (Vector2) var gravity = Vector2(0, 10)
 export (float) var max_speed = 200
 export (float) var ending_pull_force = 60

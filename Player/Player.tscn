@@ -6,7 +6,7 @@
 [ext_resource path="res://Player/Attack/Attack.tscn" type="PackedScene" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3, 7 )
+extents = Vector2( 6, 14 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
@@ -18,10 +18,11 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -7 )
+position = Vector2( -1, -14 )
 shape = SubResource( 1 )
 
 [node name="Animation" parent="." instance=ExtResource( 4 )]
+scale = Vector2( 2, 2 )
 offset = Vector2( 0, -8 )
 movement = NodePath("../MovementController")
 
@@ -29,6 +30,6 @@ movement = NodePath("../MovementController")
 position = Vector2( 2.51623, -11.5217 )
 
 [node name="Attack" parent="." instance=ExtResource( 23 )]
-position = Vector2( 9.79666, -7.17965 )
+position = Vector2( 11.5644, -6.64931 )
 gravity = 0.0
 p_pawn = NodePath("..")
