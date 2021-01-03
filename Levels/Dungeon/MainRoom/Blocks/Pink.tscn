@@ -7,4 +7,4 @@
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 tile_data = PoolIntArray( 0, 0, 262144, 1, 0, 262146 )
-data_name = "First"
+data_name = "Pink"

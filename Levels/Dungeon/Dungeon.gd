@@ -70,5 +70,9 @@ func exit():
 func start():
 	cam.position = current_level.get_camera_position()
 	player = PlayerScene.instance()
-	player.position = current_level.get_nearest_point(player.position)
+	var start = current_level.get_node_or_null("start")
+	if start:
+		player.position = start.global_position
+	else:
+		player.position = current_level.get_nearest_point(player.position)
 	add_child(player)
