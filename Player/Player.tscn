@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Movement/MovementController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Player/Idle/idle1.png" type="Texture" id=3]
 [ext_resource path="res://Player/Animation/Animation.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player/Attack/Attack.tscn" type="PackedScene" id=23]
 
@@ -23,6 +24,7 @@ shape = SubResource( 1 )
 
 [node name="Animation" parent="." instance=ExtResource( 4 )]
 scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
 offset = Vector2( 0, -8 )
 movement = NodePath("../MovementController")
 

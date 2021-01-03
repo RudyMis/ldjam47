@@ -13,7 +13,22 @@ tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 2, -65535, 0, 1, -65534, 0, 1, -6
 [node name="Exit1" parent="Exits" index="0"]
 position = Vector2( 120, 352 )
 
-[node name="Turnables" type="Node2D" parent="." index="7"]
+[node name="Node2D" type="Node2D" parent="Exits" index="1"]
+position = Vector2( 16, 288 )
+
+[node name="Node2D2" type="Node2D" parent="Exits" index="2"]
+position = Vector2( 16, 208 )
+
+[node name="Node2D3" type="Node2D" parent="Exits" index="3"]
+position = Vector2( 16, 80 )
+
+[node name="ExitArea" parent="." index="4"]
+next_level = "res://Levels/Dungeon/MainRoom/MainLeft.tscn"
+
+[node name="ExitArea4" parent="." index="7"]
+next_level = "res://Levels/Dungeon/Start/Start2.tscn"
+
+[node name="Turnables" type="Node2D" parent="." index="8"]
 
 [node name="First" parent="Turnables" index="0" instance=ExtResource( 4 )]
 position = Vector2( 128, 256 )
@@ -25,6 +40,3 @@ collision_layer = 2
 
 [node name="Second" parent="Turnables" index="2" instance=ExtResource( 3 )]
 position = Vector2( 192, 64 )
-
-[node name="ExitArea4" parent="." index="8"]
-next_level = "res://Levels/Dungeon/Start/Start2.tscn"
