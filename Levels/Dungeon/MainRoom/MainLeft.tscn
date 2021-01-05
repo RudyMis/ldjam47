@@ -13,10 +13,10 @@ tile_data = PoolIntArray( 11, 4, 65538, 12, 4, 0, 13, 4, 3, 65548, 4, 131072, 65
 [node name="Exit1" parent="Exits" index="0"]
 position = Vector2( 624, 288 )
 
-[node name="MainR" type="Node2D" parent="Exits" index="1"]
+[node name="MainP" type="Node2D" parent="Exits" index="1"]
 position = Vector2( 632, 208 )
 
-[node name="MainC" type="Node2D" parent="Exits" index="2"]
+[node name="MainR" type="Node2D" parent="Exits" index="2"]
 position = Vector2( 632, 80 )
 
 [node name="StartOut" type="Node2D" parent="Exits" index="3"]
@@ -30,6 +30,9 @@ next_level = "res://Levels/Dungeon/Blue/Blue1.tscn"
 
 [node name="ExitArea2" parent="." index="5"]
 next_level = "res://Levels/Dungeon/MainRoom/MainRoom1.tscn"
+
+[node name="ExitArea3" parent="." index="6"]
+next_level = "res://Levels/Dungeon/Pink/Pink1.tscn"
 
 [node name="ExitArea4" parent="." index="7"]
 next_level = "res://Levels/Dungeon/Start/Start1.tscn"
