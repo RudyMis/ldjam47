@@ -16,7 +16,7 @@ enum Jump {
 
 export (float) var move_velocity = 75.0
 export (float) var acceleration_time = 0.3
-export (float) var deceleration_time = 0.15
+export (float) var deceleration_time = 0.1
 export (float) var jump_height = 24.0
 export (float) var jump_time = 0.25
 export (float) var force_time 
@@ -56,6 +56,7 @@ func enter(var vel, var force, var p):
 	current_velocity = vel
 	apply_force(force)
 	pawn = p
+	direction_changed = true
 
 func leave():
 	move_tween.remove_all()
@@ -142,7 +143,7 @@ func apply_force(var force : Vector2, time = jump_time * 2):
 	force_tween.start()
 
 # Starts moving
-func start(direction : float):
+func start(direction : float, acc_time = acceleration_time):
 	if direction == 1:
 		change_state(Move.START_RIGHT)
 	else:
@@ -154,7 +155,7 @@ func start(direction : float):
 		"current_velocity:x",
 		current_velocity.x,
 		move_velocity * direction,
-		acceleration_time,
+		acc_time,
 		Tween.TRANS_CIRC,
 		Tween.EASE_OUT )
 	move_tween.start()
@@ -163,7 +164,7 @@ func start(direction : float):
 		change_state(Move.MOVE)
 
 # Stops character
-func stop():
+func stop(dece_time = deceleration_time):
 	change_state(Move.STOP)
 	move_tween.remove_all()
 	move_tween.interpolate_property (
@@ -171,7 +172,7 @@ func stop():
 		"current_velocity:x",
 		current_velocity.x,
 		0,
-		deceleration_time,
+		dece_time,
 		Tween.TRANS_CIRC,
 		Tween.EASE_IN )
 	move_tween.start()

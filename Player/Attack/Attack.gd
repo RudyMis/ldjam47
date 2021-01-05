@@ -31,10 +31,8 @@ func _process(delta):
 		do_attack = false
 
 func _on_hit(body):
-	print("Bam!")
-	print(body.get_class())
-	if body.is_class("Enemy"):
-		body.apply_damage(damage[combo], recoil[combo] * Vector2(pawn.direction(), 1))
+	if body.is_class("Hitable"):
+		body.hit(damage[combo], recoil[combo])
 		inc_combo()
 
 func inc_combo():
@@ -45,7 +43,6 @@ func inc_combo():
 func reset_combo(): combo = 0
 
 func chain_attack():
-	print("Attack")
 	var last_combo = combo + 1
 	attack()
 	yield(get_tree().create_timer(combo_reset_time), "timeout")

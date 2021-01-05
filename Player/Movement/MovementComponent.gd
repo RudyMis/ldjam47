@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 class_name MovementComponent
 func is_class(name : String): return "MovementComponent" == name || .is_class(name)
@@ -17,6 +17,9 @@ func _input(_event):
 
 func input():
 	pass
+
+func check():
+	return true
 
 func enter(var vel, var force, var p):
 	pass

@@ -14,12 +14,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player/Animation/Animation.gd"
 }, {
-"base": "RigidBody2D",
+"base": "Hitable",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Enemy/Enemy.gd"
 }, {
-"base": "Node",
+"base": "RigidBody2D",
+"class": "Hitable",
+"language": "GDScript",
+"path": "res://Hitable/Hitable.gd"
+}, {
+"base": "Node2D",
 "class": "MovementComponent",
 "language": "GDScript",
 "path": "res://Player/Movement/MovementComponent.gd"
@@ -27,23 +32,26 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AnimationComponent": "",
 "Enemy": "",
+"Hitable": "",
 "MovementComponent": ""
 }
 
 [application]
 
 config/name="ldjam47"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://Levels/Dungeon/Dungeon.tscn"
 
 [autoload]
 
 Events="*res://Autoload/Events.gd"
 SceneHandler="*res://Autoload/SceneHandler.gd"
+ScreenFade="*res://Autoload/ScreenFade.tscn"
+Data="*res://Autoload/Data.gd"
 
 [display]
 
-window/size/width=240
-window/size/height=144
+window/size/width=640
+window/size/height=368
 window/size/resizable=false
 window/size/fullscreen=true
 window/stretch/mode="viewport"
@@ -116,6 +124,7 @@ attack={
 2d_physics/layer_2="Environment"
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Weapons"
+2d_physics/layer_5="Activeables"
 
 [rendering]
 
