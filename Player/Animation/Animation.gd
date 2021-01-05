@@ -9,7 +9,7 @@ var q : Array
 onready var state_machine = $AnimationTree.get("parameters/playback")
 
 func _ready():
-	movement = get_node(movement)
+	movement = get_node_or_null(movement)
 	if movement:
 		signals()
 
@@ -22,7 +22,13 @@ func signals():
 	movement.connect("land_direction", self, "_land_move")
 
 func _idle():
-	state_machine.travel("Idle")
+	match state_machine.get_current_node():
+		"Fall":
+			pass
+		"Fall_Edge":
+			pass
+		_:
+			state_machine.travel("Idle")
 
 func _move(direction : int):
 	state_machine.travel("Move")

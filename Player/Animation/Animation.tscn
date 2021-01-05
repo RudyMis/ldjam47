@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Assets/Player/Run/run8.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Player/Run/run4.png" type="Texture" id=2]
@@ -19,8 +19,7 @@
 [ext_resource path="res://Assets/MovementAnimation.tres" type="AnimationNodeStateMachinePlayback" id=17]
 [ext_resource path="res://Player/Animation/Animation.gd" type="Script" id=18]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Fall"
+[sub_resource type="Animation" id=2]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:texture")
@@ -35,8 +34,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 15 ), ExtResource( 14 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
+[sub_resource type="Animation" id=3]
 length = 0.9
 loop = true
 tracks/0/type = "value"
@@ -52,8 +50,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ), ExtResource( 3 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Jump"
+[sub_resource type="Animation" id=4]
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
@@ -69,8 +66,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 16 ), ExtResource( 4 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Land"
+[sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:texture")
@@ -85,8 +81,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 13 ), ExtResource( 12 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Move"
+[sub_resource type="Animation" id=6]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -102,20 +97,20 @@ tracks/0/keys = {
 "values": [ ExtResource( 8 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 1 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=6]
-animation = "Fall"
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "Attack"
 
 [sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Fall"
 
 [sub_resource type="AnimationNodeAnimation" id=8]
-animation = "Idle"
+animation = "Fall"
 
 [sub_resource type="AnimationNodeAnimation" id=9]
-animation = "Jump"
+animation = "Idle"
 
 [sub_resource type="AnimationNodeAnimation" id=10]
-animation = "Land"
+animation = "Jump"
 
 [sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Land"
@@ -124,9 +119,10 @@ animation = "Land"
 animation = "Land"
 
 [sub_resource type="AnimationNodeAnimation" id=13]
-animation = "Move"
+animation = "Land"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Move"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
 
@@ -143,7 +139,6 @@ animation = "Move"
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
 switch_mode = 2
@@ -155,41 +150,56 @@ switch_mode = 2
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=27]
-states/Fall/node = SubResource( 6 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=28]
+states/Attack/node = SubResource( 29 )
+states/Attack/position = Vector2( 606, -101 )
+states/Fall/node = SubResource( 7 )
 states/Fall/position = Vector2( 606, 294 )
-states/Fall_Edge/node = SubResource( 7 )
+states/Fall_Edge/node = SubResource( 8 )
 states/Fall_Edge/position = Vector2( 1102, 55 )
-states/Idle/node = SubResource( 8 )
+states/Idle/node = SubResource( 9 )
 states/Idle/position = Vector2( 331, 55 )
-states/Jump/node = SubResource( 9 )
+states/Jump/node = SubResource( 10 )
 states/Jump/position = Vector2( 606, 150 )
-"states/Land 2/node" = SubResource( 10 )
+"states/Land 2/node" = SubResource( 11 )
 "states/Land 2/position" = Vector2( 897, -72 )
-states/Land_Idle/node = SubResource( 11 )
+states/Land_Idle/node = SubResource( 12 )
 states/Land_Idle/position = Vector2( 331, 207 )
-states/Land_Move/node = SubResource( 12 )
+states/Land_Move/node = SubResource( 13 )
 states/Land_Move/position = Vector2( 897, 212 )
-states/Move/node = SubResource( 13 )
+states/Move/node = SubResource( 14 )
 states/Move/position = Vector2( 897, 55 )
-transitions = [ "Idle", "Move", SubResource( 14 ), "Move", "Idle", SubResource( 15 ), "Idle", "Jump", SubResource( 16 ), "Jump", "Fall", SubResource( 17 ), "Fall", "Land_Move", SubResource( 18 ), "Move", "Jump", SubResource( 19 ), "Move", "Fall_Edge", SubResource( 20 ), "Fall_Edge", "Land 2", SubResource( 21 ), "Land_Move", "Move", SubResource( 22 ), "Land 2", "Move", SubResource( 23 ), "Land 2", "Idle", SubResource( 24 ), "Land_Idle", "Idle", SubResource( 25 ), "Fall", "Land_Idle", SubResource( 26 ) ]
+transitions = [ "Idle", "Move", SubResource( 15 ), "Move", "Idle", SubResource( 16 ), "Idle", "Jump", SubResource( 17 ), "Jump", "Fall", SubResource( 18 ), "Fall", "Land_Move", SubResource( 19 ), "Move", "Jump", SubResource( 20 ), "Move", "Fall_Edge", SubResource( 21 ), "Fall_Edge", "Land 2", SubResource( 22 ), "Land_Move", "Move", SubResource( 23 ), "Land 2", "Move", SubResource( 24 ), "Land 2", "Idle", SubResource( 25 ), "Land_Idle", "Idle", SubResource( 26 ), "Fall", "Land_Idle", SubResource( 27 ), "Idle", "Attack", SubResource( 30 ), "Move", "Attack", SubResource( 31 ), "Attack", "Idle", SubResource( 32 ), "Attack", "Move", SubResource( 33 ) ]
 start_node = "Idle"
-graph_offset = Vector2( 0, -6.20587 )
+graph_offset = Vector2( 12, -132.536 )
 
 [node name="Animation" type="Sprite"]
 texture = ExtResource( 3 )
 script = ExtResource( 18 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Fall = SubResource( 1 )
-anims/Idle = SubResource( 2 )
-anims/Jump = SubResource( 3 )
-anims/Land = SubResource( 4 )
-anims/Move = SubResource( 5 )
+anims/Fall = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Jump = SubResource( 4 )
+anims/Land = SubResource( 5 )
+anims/Move = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 27 )
+tree_root = SubResource( 28 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 root_motion_track = NodePath(".:texture")
