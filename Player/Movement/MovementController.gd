@@ -19,9 +19,6 @@ var p_current_node
 var to_hook = false
 var to_walk = false
 
-# Wartości zmieniane przez dzieci głównie
-var current_velocity := Vector2()
-var current_force := Vector2()
 onready var pawn = get_parent()
 
 func _ready():
@@ -95,3 +92,6 @@ func turn_node(var p_node, var b_to):
 		print(p_node)
 	node.pawn = pawn
 	if node.is_class("Node2D"): node.set_visible(b_to)
+
+func get_current_velocity():
+	return get_node(p_current_node).current_velocity
