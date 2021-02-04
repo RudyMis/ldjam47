@@ -39,15 +39,12 @@ func _ready():
 func input():
 	var last = input_axis
 	input_axis = Vector2(0, 0)
-	if Input.is_action_pressed("right"):
-		input_axis.x += 1
-	if Input.is_action_pressed("left"):
-		input_axis.x -= 1
+	input_axis.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
 	if Input.is_action_just_pressed("jump"):
 		do_jump = true
 	if Input.is_action_just_released("jump"):
 		do_jump = false
-	if last.x != input_axis.x:
+	if sign(last.x) != sign(input_axis.x):
 		direction_changed = true
 
 func enter(var vel, var force, var p):
