@@ -28,12 +28,26 @@ func _ready():
 	pass
 
 func _process(delta):
-	ray.cast_to = (get_global_mouse_position() - pawn.global_position).normalized() * hook_length
+	
+	if GlobalInput.device_type == GlobalInput.KEYBOARD:
+		ray.cast_to = get_mouse_direction() * hook_length
+	else:
+		ray.cast_to = get_controller_direction() * hook_length
 	
 	$Sprite.global_position = hook_point
 	
 	if b_active:
 		switch()
+
+func get_controller_direction():
+	var axis = Vector2.ZERO
+	axis.x = Input.get_action_strength("right") - Input.get_action_strength("left")
+	axis.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+	print(axis.normalized())
+	return axis.normalized()
+
+func get_mouse_direction():
+	return (get_global_mouse_position() - pawn.global_position).normalized()
 
 func switch():
 	if !b_switch:
