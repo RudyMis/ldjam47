@@ -8,7 +8,9 @@ func _ready():
 	pass
 
 func _process(delta):
-	pass
+	# Fullscreen
+	if Input.is_action_just_pressed("ui_cancel"):
+		OS.set_window_fullscreen(!OS.window_fullscreen)
 
 func set_movement(val : bool):
 	$MovementController.set_physics_process(val)
