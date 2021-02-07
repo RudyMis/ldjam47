@@ -11,8 +11,7 @@ onready var pawn = get_parent()
 func _ready():
 	pass
 
-# Żeby można było zmieniać
-func _input(_event):
+func _input(_e):
 	input()
 
 func input():

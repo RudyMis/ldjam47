@@ -46,9 +46,6 @@ func _process(delta):
 	if switch != null:
 		change_movement_type(switch[0], switch[2])
 
-func _input(_event):
-	pass
-
 func _physics_process(delta):
 	
 	var current_node = get_node(p_current_node)
@@ -65,7 +62,6 @@ func is_parent_kinematic():
 		set_process(false)
 		return false
 	return true
-
 
 func check_for_movement_change():
 	for switch in switches:
@@ -95,3 +91,4 @@ func turn_node(var p_node, var b_to):
 
 func get_current_velocity():
 	return get_node(p_current_node).current_velocity
+
