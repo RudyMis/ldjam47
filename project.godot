@@ -57,6 +57,10 @@ window/size/fullscreen=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "LDtk-Importer", "net.kivano.fsm" )
+
 [gdnative]
 
 singletons=[  ]
