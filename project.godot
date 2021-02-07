@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player/Animation/Animation.gd"
 }, {
-"base": "Hitable",
+"base": "RigidBody2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Enemy/Enemy.gd"
@@ -56,6 +56,10 @@ window/size/height=368
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "LDtk-Importer", "net.kivano.fsm" )
 
 [gdnative]
 

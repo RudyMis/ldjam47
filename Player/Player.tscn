@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Movement/MovementController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Player/Idle/idle1.png" type="Texture" id=3]
 [ext_resource path="res://Player/Animation/Animation.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player/Animation/Attack/AttackAnimation.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Flip.gd" type="Script" id=6]
 [ext_resource path="res://Player/Attack/Attack.tscn" type="PackedScene" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -32,12 +33,16 @@ movement = NodePath("../MovementController")
 [node name="MovementController" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2.51623, -11.5217 )
 
-[node name="Attack" parent="." instance=ExtResource( 23 )]
+[node name="Flip" type="Node2D" parent="."]
+script = ExtResource( 6 )
+movement = NodePath("../MovementController")
+
+[node name="Attack" parent="Flip" instance=ExtResource( 23 )]
 position = Vector2( 11.5644, -6.64931 )
 gravity = 0.0
-p_pawn = NodePath("..")
+p_pawn = NodePath("../..")
 
-[node name="AttackAnim" parent="." instance=ExtResource( 5 )]
+[node name="AttackAnim" parent="Flip" instance=ExtResource( 5 )]
 position = Vector2( -1.41422, -15.5563 )
 attack = NodePath("../Attack")
 [connection signal="ceiling" from="MovementController" to="MovementAnimation" method="_on_MovementController_ceiling"]
