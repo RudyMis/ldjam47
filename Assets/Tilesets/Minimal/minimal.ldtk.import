@@ -1,0 +1,13 @@
+[remap]
+
+importer="LDtk.import"
+type="PackedScene"
+path="res://.import/minimal.ldtk-2621b718a37bbded3df4b5a85047a4a6.tscn"
+
+[deps]
+
+source_file="res://Assets/Tilesets/Minimal/minimal.ldtk"
+dest_files=[ "res://.import/minimal.ldtk-2621b718a37bbded3df4b5a85047a4a6.tscn" ]
+
+[params]
+

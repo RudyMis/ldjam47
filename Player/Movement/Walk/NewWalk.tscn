@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/net.kivano.fsm/content/fsm.gd" type="Script" id=1]
+
+[node name="FSM2D" type="Node2D"]
+script = ExtResource( 1 )
+"Initial state:" = ""
+"Create new:/Subdirectory for FSM nodes:" = "FSM"
+"Create new:/Create state with name:" = null
+"Create new:/Create transition with name:" = null
+GraphData = {
+
+}
+
+[node name="States" type="Node2D" parent="."]
+
+[node name="Transitions" type="Node2D" parent="."]
