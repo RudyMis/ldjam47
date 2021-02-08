@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "MovementComponent",
 "language": "GDScript",
 "path": "res://Player/Movement/MovementComponent.gd"
+}, {
+"base": "Resource",
+"class": "SM_Tree",
+"language": "GDScript",
+"path": "res://SM/SM_Tree.gd"
 } ]
 _global_script_class_icons={
 "AnimationComponent": "",
 "Enemy": "",
 "Hitable": "",
-"MovementComponent": ""
+"MovementComponent": "",
+"SM_Tree": ""
 }
 
 [application]
@@ -48,6 +54,7 @@ SceneHandler="*res://Autoload/SceneHandler.gd"
 ScreenFade="*res://Autoload/ScreenFade.tscn"
 Data="*res://Autoload/Data.gd"
 GlobalInput="*res://Autoload/Input.gd"
+StateMachine="*res://SM/A_SM.gd"
 
 [display]
 
